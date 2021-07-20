@@ -1,0 +1,10 @@
+# keep
+.keep
+
+# test
+test/
+*.test.ts
+
+# documents
+*.md
+LICENSE
