@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:@shopify/typescript",
+    "plugin:@shopify/react",
+    "plugin:@shopify/graphql",
+    "plugin:@next/next/recommended",
+    "plugin:@shopify/prettier"
+  ],
+  "plugins": ["unused-imports"],
+  "rules": {
+    "@typescript-eslint/consistent-type-definitions": [2, "type"],
+    "@typescript-eslint/consistent-indexed-object-style": [2, "record"],
+    "jsx-a11y/label-has-for": [0]
+  },
+  "overrides": [
+    {
+      "files": ["next-env.d.ts"],
+      "rules": {
+        "spaced-comment": [0],
+        "@typescript-eslint/triple-slash-reference": [0]
+      }
+    },
+    {
+      "files": ["*.config.js"],
+      "extends": ["plugin:@shopify/node"]
+    }
+  ]
+}

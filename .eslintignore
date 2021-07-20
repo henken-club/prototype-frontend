@@ -1,0 +1,14 @@
+# dependencies
+package-lock.json
+
+# test
+coverage/
+
+# codegen
+schema.graphql
+
+# Next.js
+.next/
+
+# Vercel
+.vercel/

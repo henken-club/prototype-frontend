@@ -1,0 +1,7 @@
+generates:
+  ./schema.graphql:
+    schema: ${GRAPHQL_API_ENDPOINT:./schema.graphql}
+    plugins:
+      - 'schema-ast'
+    config:
+      includeDirectives: true
