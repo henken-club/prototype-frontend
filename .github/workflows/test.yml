@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 14
           cache: yarn
-      - run: yarn install --frozen-lockfile
+      - uses: bahmutov/npm-install@v1
       - run: yarn run lint:eslint
 
   prettier:
