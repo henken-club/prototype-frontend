@@ -34,9 +34,13 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "clsx": "^1.1.1",
     "graphql": "^15.5.1",
+    "graphql-request": "^3.4.0",
+    "isomorphic-unfetch": "^3.1.0",
     "next": "^11.0.1",
+    "nookies": "^2.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.11.1",
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
@@ -46,6 +50,7 @@
     "@graphql-codegen/schema-ast": "^1.18.3",
     "@graphql-codegen/typescript": "^1.23.0",
     "@graphql-codegen/typescript-graphql-request": "^3.2.5",
+    "@graphql-codegen/typescript-operations": "^1.18.4",
     "@graphql-codegen/typescript-react-apollo": "^2.3.1",
     "@shopify/eslint-plugin": "^40.4.0",
     "@shopify/prettier-config": "^1.1.2",

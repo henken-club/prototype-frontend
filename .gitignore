@@ -12,8 +12,9 @@ dist/
 coverage/
 
 # env
-.env*
-!.env.example
+.env
+.env.local
+.envrc
 
 # OS
 .DS_Store
@@ -22,6 +23,9 @@ coverage/
 .vscode/*
 !.vscode/extensions.json
 .vercel
+
+# codegen
+codegen/
 
 # Next.js
 .next/

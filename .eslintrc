@@ -3,12 +3,12 @@
   "extends": [
     "plugin:@shopify/typescript",
     "plugin:@shopify/react",
-    "plugin:@shopify/graphql",
     "plugin:@next/next/recommended",
     "plugin:@shopify/prettier"
   ],
   "plugins": ["unused-imports"],
   "rules": {
+    "unused-imports/no-unused-imports": [2],
     "@typescript-eslint/consistent-type-definitions": [2, "type"],
     "@typescript-eslint/consistent-indexed-object-style": [2, "record"],
     "jsx-a11y/label-has-for": [0]

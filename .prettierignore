@@ -6,6 +6,7 @@ coverage/
 
 # codegen
 schema.graphql
+codegen/
 
 # Next.js
 .next/
