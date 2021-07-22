@@ -3,12 +3,12 @@ import {AppProps} from 'next/app';
 import {ApolloProvider} from '@apollo/client';
 import {config} from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import {RecoilRoot, useSetRecoilState} from 'recoil';
+import {RecoilRoot, useRecoilValue, useSetRecoilState} from 'recoil';
 
-import {createApolloClient, useViewerQuery} from '~/graphql/apollo';
-import '~/styles/global.css';
+import {createApolloClient, useViewerLazyQuery} from '~/graphql/apollo';
+import '~/styles/index.css';
 import {viewerState} from '~/states/Viewer';
-import {HeaderNav} from '~/components/organisms/HeaderNav';
+import {DefaultLayout} from '~/components/layouts/Default';
 
 config.autoAddCss = false;
 
@@ -48,10 +48,9 @@ export const App: React.FC<AppProps> = ({
     <ApolloProvider client={createApolloClient()}>
       <RecoilRoot>
         <Viewer />
-        <>
-          <HeaderNav />
+        <DefaultLayout>
           <PageComponent {...pageProps} />
-        </>
+        </DefaultLayout>
       </RecoilRoot>
     </ApolloProvider>
   );
