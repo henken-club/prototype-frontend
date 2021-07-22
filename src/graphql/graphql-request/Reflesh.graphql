@@ -1,0 +1,7 @@
+mutation Reflesh($token: String!) {
+  refleshToken(input: {token: $token}) {
+    tokens {
+      accessToken
+    }
+  }
+}

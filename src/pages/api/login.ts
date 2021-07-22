@@ -2,6 +2,7 @@ import {NextApiHandler} from 'next';
 import {setCookie} from 'nookies';
 
 import {graphqlSdk} from '~/graphql/graphql-request';
+import {API_REFRESH_TOKEN_KEY} from '~/lib/env';
 
 const parseInput = ({
   alias,
@@ -36,9 +37,10 @@ export const handler: NextApiHandler = async (req, res) => {
       .Login({input})
       .then(({login}) => login.tokens);
 
-    setCookie({res}, 'accessToken', tokens.accessToken);
-    setCookie({res}, 'refleshToken', tokens.refleshToken);
+    setCookie({res}, API_REFRESH_TOKEN_KEY!, tokens.refleshToken);
+
     res.status(200);
+    res.send(tokens.accessToken);
     res.end();
     return;
   } catch (error) {
