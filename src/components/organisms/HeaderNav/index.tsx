@@ -5,13 +5,11 @@ import clsx from 'clsx';
 
 import {viewerState} from '~/states/Viewer';
 
-type ViewProps = {className?: string} & (
+export type ViewProps = {className?: string} & (
   | {login: false}
   | {login: true; viewer: null}
   | {login: true; viewer: {alias: string; displayName: string | null}}
 );
-type ComponentProps = {className?: string};
-
 export const View: React.VFC<ViewProps> = ({className, ...props}) => {
   return (
     <nav className={clsx(className)}>
@@ -27,6 +25,7 @@ export const View: React.VFC<ViewProps> = ({className, ...props}) => {
   );
 };
 
+export type ComponentProps = {className?: string};
 export const HeaderNav: React.VFC<ComponentProps> = ({...props}) => {
   const viewer = useRecoilValue(viewerState);
 

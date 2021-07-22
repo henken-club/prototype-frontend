@@ -13,3 +13,6 @@ codegen/
 
 # Vercel
 .vercel/
+
+# Storybook
+storybook-static/

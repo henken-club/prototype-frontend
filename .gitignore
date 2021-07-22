@@ -35,3 +35,6 @@ codegen/
 
 # ESLint
 .eslintcache
+
+# Storybook
+storybook-static/
