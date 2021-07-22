@@ -1,17 +1,25 @@
 import {NextPage} from 'next';
-import React from 'react';
+import {useRouter} from 'next/router';
+import React, {useEffect} from 'react';
+import {useRecoilValue} from 'recoil';
 
-import {LoginPage} from '~/template/LoginPage';
+import {viewerState} from '~/states/Viewer';
+import {LoginPage} from '~/template/Login';
 
 export type UrlQuery = Record<string, never>;
 export type PageProps = Record<string, never>;
 
 export const Page: NextPage<PageProps> = ({...props}) => {
+  const viewer = useRecoilValue(viewerState);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (viewer) router.push('/');
+  }, [router, viewer]);
+
   return (
     <>
-      <main>
-        <LoginPage />
-      </main>
+      <LoginPage />
     </>
   );
 };

@@ -8,6 +8,7 @@ import {RecoilRoot, useSetRecoilState} from 'recoil';
 import {createApolloClient, useViewerQuery} from '~/graphql/apollo';
 import '~/styles/global.css';
 import {viewerState} from '~/states/Viewer';
+import {HeaderNav} from '~/components/organisms/HeaderNav';
 
 config.autoAddCss = false;
 
@@ -36,7 +37,10 @@ export const App: React.FC<AppProps> = ({
     <ApolloProvider client={createApolloClient()}>
       <RecoilRoot>
         <Viewer />
-        <PageComponent {...pageProps} />
+        <>
+          <HeaderNav />
+          <PageComponent {...pageProps} />
+        </>
       </RecoilRoot>
     </ApolloProvider>
   );
