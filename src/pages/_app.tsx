@@ -13,8 +13,21 @@ import {HeaderNav} from '~/components/organisms/HeaderNav';
 config.autoAddCss = false;
 
 export const Viewer: React.VFC<Record<string, never>> = ({...props}) => {
-  const {data, loading, error} = useViewerQuery();
+  const [loader, {data, loading, called}] = useViewerLazyQuery();
+
+  const viewer = useRecoilValue(viewerState);
   const setViewer = useSetRecoilState(viewerState);
+
+  useEffect(() => {
+    if (!viewer) loader();
+  }, [loader, viewer]);
+
+  useEffect(() => {
+    if (!viewer && called) {
+      if (loading) setViewer(null);
+      else setViewer(undefined);
+    }
+  }, [called, data, loading, setViewer, viewer]);
 
   useEffect(() => {
     if (data)
@@ -22,9 +35,7 @@ export const Viewer: React.VFC<Record<string, never>> = ({...props}) => {
         alias: data.viewer.alias,
         displayName: data.viewer.displayName || null,
       });
-    else if (loading) setViewer(null);
-    else setViewer(undefined);
-  }, [data, loading, setViewer]);
+  }, [data, setViewer]);
 
   return <></>;
 };
