@@ -10,8 +10,8 @@ export type FormInput = {
   password: string;
 };
 
-export type PageProps = Record<string, never>;
-export const LoginPage: React.VFC<PageProps> = ({...props}) => {
+export type PageProps = {className?: string};
+export const LoginTemplate: React.VFC<PageProps> = ({...props}) => {
   const router = useRouter();
   const {register, handleSubmit} = useForm<FormInput>();
   const login = useLogin();

@@ -8,7 +8,7 @@ import {HomeTemplate} from '~/template/Home';
 import {WelcomeTemplate} from '~/template/Welcome';
 
 export type UrlQuery = Record<string, never>;
-export type PageProps = Record<string, never>;
+export type PageProps = {className?: string};
 
 export const getServerSideProps: GetServerSideProps<UrlQuery, PageProps> =
   async ({query}) => {
@@ -17,14 +17,14 @@ export const getServerSideProps: GetServerSideProps<UrlQuery, PageProps> =
     };
   };
 
-export const Page: NextPage<PageProps> = ({...props}) => {
+export const Page: NextPage<PageProps> = ({className, ...props}) => {
   const viewer = useRecoilValue(viewerState);
 
   return (
     <>
-      {viewer === undefined && <WelcomeTemplate />}
-      {viewer === null && <LoadingTemplate />}
-      {Boolean(viewer) && <HomeTemplate />}
+      {viewer === undefined && <WelcomeTemplate className={className} />}
+      {viewer === null && <LoadingTemplate className={className} />}
+      {Boolean(viewer) && <HomeTemplate className={className} />}
     </>
   );
 };

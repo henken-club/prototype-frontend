@@ -33,7 +33,7 @@ export const LoggedIn: Story<ViewProps> = (args) => (
 LoggedIn.args = {
   login: true,
   viewer: {
-    alias: 'Alias',
+    alias: 'alias',
     displayName: 'DisplayName',
   },
 };

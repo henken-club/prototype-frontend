@@ -4,12 +4,12 @@ import React, {useEffect} from 'react';
 import {useRecoilValue} from 'recoil';
 
 import {viewerState} from '~/states/Viewer';
-import {LoginPage} from '~/template/Login';
+import {LoginTemplate} from '~/template/Login';
 
 export type UrlQuery = Record<string, never>;
-export type PageProps = Record<string, never>;
+export type PageProps = {className?: string};
 
-export const Page: NextPage<PageProps> = ({...props}) => {
+export const Page: NextPage<PageProps> = ({className, ...props}) => {
   const viewer = useRecoilValue(viewerState);
   const router = useRouter();
 
@@ -19,7 +19,7 @@ export const Page: NextPage<PageProps> = ({...props}) => {
 
   return (
     <>
-      <LoginPage />
+      <LoginTemplate className={className} />
     </>
   );
 };
