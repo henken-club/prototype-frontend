@@ -1,8 +1,5 @@
 import * as nextImage from 'next/image';
-import {addDecorator} from '@storybook/react';
-import {withNextRouter} from 'storybook-addon-next-router';
-
-addDecorator(withNextRouter());
+import {RouterContext} from 'next/dist/next-server/lib/router-context';
 
 Object.defineProperty(nextImage, 'default', {
   configurable: true,
@@ -15,5 +12,8 @@ export const parameters = {
   },
   storySort: {
     method: 'alphabetical',
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 };

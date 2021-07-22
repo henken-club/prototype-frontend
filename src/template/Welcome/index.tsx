@@ -9,7 +9,9 @@ export const View: React.VFC<ViewProps> = ({className, ...props}) => {
   return (
     <div className={clsx(className)}>
       <span>WELCOME</span>
-      <Link href="/login">Login</Link>
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
     </div>
   );
 };

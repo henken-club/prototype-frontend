@@ -15,4 +15,10 @@ export default {
 export const Primary: Story<ViewProps> = (args) => (
   <View {...args} className={clsx('w-full')} />
 );
+
 Primary.args = {};
+Primary.parameters = {
+  nextRouter: {
+    pathname: '/welcome',
+  },
+};
