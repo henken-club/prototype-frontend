@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: 14
       - uses: bahmutov/npm-install@v1
+      - run: yarn run codegen
       - run: yarn run ts-check
 
   build:
@@ -30,6 +31,7 @@ jobs:
         with:
           node-version: 14
       - uses: bahmutov/npm-install@v1
+      - run: yarn run codegen
       - run: yarn run build
 
   docker-frontend:
