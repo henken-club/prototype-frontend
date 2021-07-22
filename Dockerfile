@@ -10,20 +10,26 @@ FROM node:14.16.1-slim AS builder
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV GRAPHQL_API_SCHEMA ./schema.graphql
 
 COPY --from=deps /app/node_modules ./node_modules
 
-COPY package.json yarn.lock ./
-COPY codegen.yml schema.graphql ./
-RUN yarn run codegen
-
 COPY \
-  .babelrc tsconfig.json \
-  next-env.d.ts next.config.js \
-  postcss.config.js tailwind.config.js \
+  .babelrc \
+  codegen.yml \
+  next-env.d.ts \
+  next.config.js \
+  package.json \
+  postcss.config.js \
+  schema.graphql \
+  tailwind.config.js \
+  tsconfig.json \
+  yarn.lock \
   ./
 COPY src ./src
 COPY public ./public
+
+RUN yarn run codegen
 RUN yarn run build
 
 # Run

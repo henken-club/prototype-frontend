@@ -3,7 +3,10 @@
 
 # test
 test/
-*.test.ts
+*.test.*
+
+# stories
+*.stories.*
 
 # documents
 *.md

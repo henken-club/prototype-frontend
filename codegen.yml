@@ -9,7 +9,7 @@ generates:
   ./src/graphql/codegen/apollo.ts:
     schema: ${GRAPHQL_API_ENDPOINT:./schema.graphql}
     documents:
-      - src/graphql/apollo/*.graphql
+      - ./src/graphql/apollo/*.graphql
     plugins:
       - typescript
       - typescript-operations
@@ -18,7 +18,7 @@ generates:
   ./src/graphql/codegen/graphql-request.ts:
     schema: ${GRAPHQL_API_ENDPOINT:./schema.graphql}
     documents:
-      - src/graphql/graphql-request/*.graphql
+      - ./src/graphql/graphql-request/*.graphql
     plugins:
       - typescript
       - typescript-operations
