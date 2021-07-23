@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import {LoginButton} from './Login';
 import {Viewer} from './Viewer';
+import {Loading} from './Loading';
 
 import {viewerState} from '~/states/Viewer';
 
@@ -19,16 +20,15 @@ export const View: React.VFC<ViewProps> = ({className, ...props}) => {
         className={clsx(
           ['h-full'],
           ['container', 'mx-auto'],
+          ['px-4', 'md:px-0'],
           ['flex'],
           ['items-center'],
-          ['py-2'],
-          ['px-4'],
         )}
       >
         <div className={clsx('flex-grow')} />
         <div className={clsx('flex')}>
           {!props.login && <LoginButton />}
-          {props.login && !props.viewer && <p>Loading</p>}
+          {props.login && !props.viewer && <Loading />}
           {props.login && props.viewer && <Viewer {...props.viewer} />}
         </div>
       </div>

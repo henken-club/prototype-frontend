@@ -10,6 +10,9 @@ export default {
   argTypes: {
     className: {table: {disable: true}},
   },
+  parameters: {
+    layout: 'fullscreen',
+  },
 } as Meta;
 
 export const NotLogin: Story<ViewProps> = (args) => (

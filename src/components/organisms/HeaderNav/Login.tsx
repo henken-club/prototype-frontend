@@ -9,11 +9,12 @@ export const View: React.VFC<ViewProps> = ({className, ...props}) => {
       <a
         className={clsx(
           className,
-          ['px-4'],
-          ['py-2'],
+          ['px-2', 'md:px-4'],
+          ['py-1', 'md:py-2'],
           ['rounded-sm'],
           ['bg-blue-400'],
           ['text-white'],
+          ['text-sm', 'md:text-base'],
           ['font-bold'],
         )}
       >

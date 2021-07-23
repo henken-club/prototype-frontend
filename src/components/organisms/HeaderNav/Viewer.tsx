@@ -11,7 +11,9 @@ export const View: React.VFC<ViewProps> = ({className, alias, displayName}) => {
 
   return (
     <div className={clsx(className, 'flex')}>
-      <span className={clsx(['text-white'])}>{name}</span>
+      <span className={clsx(['text-white'], ['text-sm', 'md:text-base'])}>
+        {name}
+      </span>
     </div>
   );
 };
