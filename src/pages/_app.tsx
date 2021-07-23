@@ -19,15 +19,11 @@ export const Viewer: React.VFC<Record<string, never>> = ({...props}) => {
   const setViewer = useSetRecoilState(viewerState);
 
   useEffect(() => {
-    if (!viewer) loader();
-  }, [loader, viewer]);
-
-  useEffect(() => {
-    if (!viewer && called) {
-      if (loading) setViewer(null);
-      else setViewer(undefined);
+    if (!called && viewer === undefined) {
+      loader();
+      setViewer(null);
     }
-  }, [called, data, loading, setViewer, viewer]);
+  }, [called, viewer, loader, setViewer]);
 
   useEffect(() => {
     if (data)
