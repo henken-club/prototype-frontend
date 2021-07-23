@@ -189,6 +189,7 @@ enum PrejudiceOrderField {
 }
 
 type Query {
+  allUsers: [User!]!
   answer(id: ID!): Answer
   author(id: ID!): Author
   book(id: ID!): Book

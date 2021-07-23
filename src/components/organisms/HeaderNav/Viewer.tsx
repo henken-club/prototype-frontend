@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, {useState} from 'react';
+import Link from 'next/link';
 
 export type ViewProps = {
   className?: string;
@@ -11,9 +12,11 @@ export const View: React.VFC<ViewProps> = ({className, alias, displayName}) => {
 
   return (
     <div className={clsx(className, 'flex')}>
-      <span className={clsx(['text-white'], ['text-sm', 'md:text-base'])}>
-        {name}
-      </span>
+      <Link href={`/users/${alias}`}>
+        <a className={clsx(['text-white'], ['text-sm', 'md:text-base'])}>
+          {name}
+        </a>
+      </Link>
     </div>
   );
 };

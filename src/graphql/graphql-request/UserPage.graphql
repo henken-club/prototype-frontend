@@ -1,0 +1,12 @@
+query AllUserPages {
+  allUsers {
+    alias
+  }
+}
+
+query UserPage($alias: ID!) {
+  user(alias: $alias) {
+    alias
+    displayName
+  }
+}
