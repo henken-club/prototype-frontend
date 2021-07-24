@@ -1,9 +1,4 @@
-import {
-  GetStaticPaths,
-  GetStaticProps,
-  InferGetStaticPropsType,
-  NextPage,
-} from 'next';
+import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from 'next';
 import React from 'react';
 import {Merge} from 'type-fest';
 
@@ -13,36 +8,26 @@ import {UserTemplate} from '~/template/User';
 export type StaticProps = {user: {alias: string; displayName: string | null}};
 export type UrlQuery = {alias: string};
 
-export const getStaticPaths: GetStaticPaths<UrlQuery> = async () =>
-  graphqlSdk
-    .AllUserPages()
-    .then(({allUsers}) => allUsers.map(({alias}) => ({params: {alias}})))
-    .then((paths) => ({
-      paths,
-      fallback: 'blocking',
-    }));
+export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
+  async ({params}) => {
+    if (!params?.alias) throw new Error('Invalid parameters.');
 
-export const getStaticProps: GetStaticProps<StaticProps, UrlQuery> = async ({
-  params,
-}) => {
-  if (!params?.alias) throw new Error('Invalid parameters.');
+    const result = await graphqlSdk.UserPage({alias: params.alias});
+    if (!result.user) return {notFound: true};
 
-  const result = await graphqlSdk.UserPage({alias: params.alias});
-  if (!result.user) return {notFound: true};
-
-  return {
-    props: {
-      user: {
-        alias: result.user.alias,
-        displayName: result.user.displayName || null,
+    return {
+      props: {
+        user: {
+          alias: result.user.alias,
+          displayName: result.user.displayName || null,
+        },
       },
-    },
+    };
   };
-};
 
 export type PageProps = Merge<
   {className?: string},
-  InferGetStaticPropsType<typeof getStaticProps>
+  InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 export const Page: NextPage<PageProps> = ({className, user, ...props}) => {
   return (
