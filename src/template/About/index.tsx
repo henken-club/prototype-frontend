@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
-import Link from 'next/link';
+
+import {NextLink} from '~/components/atoms/NextLink';
 
 export type ViewProps = {
   className?: string;
@@ -8,9 +9,9 @@ export type ViewProps = {
 export const View: React.VFC<ViewProps> = ({className, ...props}) => {
   return (
     <div className={clsx(className)}>
-      <Link href="/">
+      <NextLink href="/">
         <a>Index</a>
-      </Link>
+      </NextLink>
     </div>
   );
 };

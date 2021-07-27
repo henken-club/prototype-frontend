@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import Link from 'next/link';
+
+import {NextLink} from '~/components/atoms/NextLink';
 
 export type ViewProps = {className?: string};
 export const View: React.VFC<ViewProps> = ({className, ...props}) => {
@@ -14,15 +15,15 @@ export const View: React.VFC<ViewProps> = ({className, ...props}) => {
               ['space-y-1', 'md:space-y-2'],
             )}
           >
-            <Link href="/about">
+            <NextLink href="/about">
               <a className={clsx('text-sm', 'text-gray-300')}>About</a>
-            </Link>
-            <Link href="/terms">
+            </NextLink>
+            <NextLink href="/terms">
               <a className={clsx('text-sm', 'text-gray-300')}>Terms</a>
-            </Link>
-            <Link href="/contact">
+            </NextLink>
+            <NextLink href="/contact">
               <a className={clsx('text-sm', 'text-gray-300')}>Contact</a>
-            </Link>
+            </NextLink>
           </div>
         </div>
         <div className={clsx('mt-4')}>

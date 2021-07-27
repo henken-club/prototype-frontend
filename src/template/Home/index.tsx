@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
-import Link from 'next/link';
+
+import {NextLink} from '~/components/atoms/NextLink';
 
 export const HomeTemplate: React.VFC<{className?: string}> = ({
   className,
@@ -9,9 +10,9 @@ export const HomeTemplate: React.VFC<{className?: string}> = ({
   return (
     <div className={clsx(className)}>
       <span>Home</span>
-      <Link href="/about">
+      <NextLink href="/about">
         <a>about</a>
-      </Link>
+      </NextLink>
     </div>
   );
 };
