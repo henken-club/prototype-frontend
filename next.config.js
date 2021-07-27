@@ -8,4 +8,7 @@ module.exports = {
     API_ACCESS_TOKEN_KEY: process.env.API_ACCESS_TOKEN_KEY,
     API_REFRESH_TOKEN_KEY: process.env.API_REFRESH_TOKEN_KEY,
   },
+  images: {
+    domains: [process.env.ALLOWED_IMAGE_DOMAIN],
+  },
 };
