@@ -1,0 +1,7 @@
+mutation PostPrejudice($input: PostPrejudiceInput!) {
+  postPrejudice(input: $input) {
+    prejudice {
+      id
+    }
+  }
+}

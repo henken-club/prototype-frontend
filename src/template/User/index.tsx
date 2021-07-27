@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import React from 'react';
 
+import {MyPage} from './MyPage';
+
 export type ViewProps = {
   className?: string;
   user: {
@@ -11,6 +13,7 @@ export type ViewProps = {
 export const View: React.VFC<ViewProps> = ({className, user}) => {
   return (
     <div className={clsx(className)}>
+      <MyPage pageAlias={user.alias} />
       <p>{user.alias}</p>
       <p>{user.displayName}</p>
     </div>
