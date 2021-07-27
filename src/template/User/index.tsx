@@ -1,10 +1,9 @@
 import clsx from 'clsx';
 import React from 'react';
-import Image from 'next/image';
 
-import {MyPage} from './MyPage';
-
-import {NextLink} from '~/components/atoms/NextLink';
+import {SectionAnswers} from './SectionAnswers';
+import {SectionPosted, SectionRecived} from './SectionPrejudices';
+import {SectionUser} from './SectionUser';
 
 export type ViewProps = {
   className?: string;
@@ -16,56 +15,69 @@ export type ViewProps = {
     followingCount: number;
     followers: {alias: string; displayName: string; picture: string}[];
     followersCount: number;
+    postedPrejudices: {
+      id: string;
+      title: string;
+      userTo: {alias: string; displayName: string; picture: string};
+      answer: {id: string} | null;
+    }[];
+    recievedPrejudices: {
+      id: string;
+      title: string;
+      userFrom: {alias: string; displayName: string; picture: string};
+      answer: {id: string} | null;
+    }[];
+    answers: {
+      id: string;
+    }[];
   };
 };
 export const View: React.VFC<ViewProps> = ({className, user}) => {
   return (
     <div className={clsx(className)}>
-      <MyPage pageAlias={user.alias} />
-      <p>{user.alias}</p>
-      <p>{user.displayName}</p>
-      <Image
-        src={user.picture}
-        alt={`${user.displayName}(@${user.alias})`}
-        width={256}
-        height={256}
-      />
-      <div className={clsx('flex')}>
-        <div className={clsx('block')}>
-          <span>Followers</span>
-          <p>{user.followersCount}</p>
-          <div className={clsx('grid', ['grid-cols-8'])}>
-            {user.followers.map(({picture, displayName, alias}) => (
-              <NextLink key={alias} href={`/users/${alias}`}>
-                <a>
-                  <Image
-                    src={picture}
-                    alt={`${displayName}(@${alias})`}
-                    width={32}
-                    height={32}
-                  />
-                </a>
-              </NextLink>
-            ))}
-          </div>
-        </div>
-        <div className={clsx('block')}>
-          <span>Following</span>
-          <p>{user.followingCount}</p>
-          <div className={clsx('grid', ['grid-cols-8'])}>
-            {user.following.map(({picture, displayName, alias}) => (
-              <NextLink key={alias} href={`/users/${alias}`}>
-                <a>
-                  <Image
-                    src={picture}
-                    alt={`${displayName}(@${alias})`}
-                    width={32}
-                    height={32}
-                  />
-                </a>
-              </NextLink>
-            ))}
-          </div>
+      <div className={clsx(['flex'], ['flex-col', 'md:flex-row'])}>
+        <SectionUser
+          className={clsx()}
+          alias={user.alias}
+          displayName={user.displayName}
+          picture={user.picture}
+          followers={user.followers}
+          followersCount={user.followersCount}
+          following={user.following}
+          followingCount={user.followingCount}
+        />
+        <div
+          className={clsx(
+            'flex-grow',
+            ['mt-4', 'ml:mt-0'],
+            ['ml-0', 'ml:ml-4'],
+            ['grid'],
+            ['grid-cols-1', 'lg:grid-cols-2', 'xl:grid-cols-3'],
+            ['gap-x-0', 'md:gap-x-4', 'lg:gap-x-8'],
+            ['gap-y-4', 'md:gap-x-0'],
+          )}
+        >
+          <SectionPosted
+            className={clsx()}
+            alias={user.alias}
+            displayName={user.displayName}
+            picture={user.picture}
+            prejudices={user.postedPrejudices}
+          />
+          <SectionRecived
+            className={clsx()}
+            alias={user.alias}
+            displayName={user.displayName}
+            picture={user.picture}
+            prejudices={user.recievedPrejudices}
+          />
+          <SectionAnswers
+            className={clsx()}
+            alias={user.alias}
+            displayName={user.displayName}
+            picture={user.picture}
+            answers={user.answers}
+          />
         </div>
       </div>
     </div>
@@ -82,6 +94,21 @@ export type ComponentProps = {
     followingCount: number;
     followers: {alias: string; displayName: string; picture: string}[];
     followersCount: number;
+    postedPrejudices: {
+      id: string;
+      title: string;
+      userTo: {alias: string; displayName: string; picture: string};
+      answer: {id: string} | null;
+    }[];
+    recievedPrejudices: {
+      id: string;
+      title: string;
+      userFrom: {alias: string; displayName: string; picture: string};
+      answer: {id: string} | null;
+    }[];
+    answers: {
+      id: string;
+    }[];
   };
 };
 export const UserTemplate: React.VFC<ComponentProps> = ({...props}) => {

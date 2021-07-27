@@ -19,5 +19,35 @@ query UserPage($alias: ID!) {
         picture
       }
     }
+    prejudicesPosted {
+      nodes {
+        id
+        title
+        createdAt
+        userTo {
+          alias
+          displayName
+          picture
+        }
+        answer {
+          id
+        }
+      }
+    }
+    preduicesRecieved {
+      nodes {
+        id
+        title
+        createdAt
+        userFrom {
+          alias
+          displayName
+          picture
+        }
+        answer {
+          id
+        }
+      }
+    }
   }
 }

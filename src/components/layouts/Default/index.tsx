@@ -11,7 +11,14 @@ export const DefaultLayout: React.FC<ComponentProps> = ({
   ...props
 }) => {
   return (
-    <div className={clsx(className, ['min-h-screen'], ['flex', 'flex-col'])}>
+    <div
+      className={clsx(
+        className,
+        ['min-h-screen'],
+        ['flex', 'flex-col'],
+        ['bg-gray-900'],
+      )}
+    >
       <HeaderNav className={clsx(['w-full'])} />
       <main className={clsx(['container', 'mx-auto'], [])}>{children}</main>
       <Footer className={clsx(['w-full', 'mt-auto'])} />

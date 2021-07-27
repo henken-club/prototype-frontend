@@ -9,7 +9,9 @@ export type Href =
   | `/login`
   | `/contact`
   | `/terms`
-  | `/users/${string}`;
+  | `/users/${string}`
+  | `/prejudices/${string}`
+  | `/answers/${string}`;
 
 export type NextLinkProps = Merge<Omit<LinkProps, 'href'>, {href: Href}>;
 export const NextLink: React.FC<NextLinkProps> = ({...props}) => (

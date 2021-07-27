@@ -14,6 +14,19 @@ export type StaticProps = {
     followingCount: number;
     followers: {alias: string; displayName: string; picture: string}[];
     followersCount: number;
+    postedPrejudices: {
+      id: string;
+      title: string;
+      userTo: {alias: string; displayName: string; picture: string};
+    }[];
+    recievedPrejudices: {
+      id: string;
+      title: string;
+      userFrom: {alias: string; displayName: string; picture: string};
+    }[];
+    answers: {
+      id: string;
+    }[];
   };
 };
 export type UrlQuery = {alias: string};
@@ -31,22 +44,31 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
           alias: result.user.alias,
           displayName: result.user.displayName,
           picture: result.user.picture,
-          following: result.user.following.nodes.map(
-            ({alias, displayName, picture}) => ({
-              alias,
-              displayName,
-              picture,
-            }),
-          ),
+          following: result.user.following.nodes.map((user) => ({
+            ...user,
+          })),
           followingCount: result.user.following.totalCount,
-          followers: result.user.followers.nodes.map(
-            ({alias, displayName, picture}) => ({
-              alias,
-              displayName,
-              picture,
+          followers: result.user.followers.nodes.map((user) => ({
+            ...user,
+          })),
+          followersCount: result.user.followers.totalCount,
+          postedPrejudices: result.user.prejudicesPosted.nodes.map(
+            ({id, title, userTo, answer}) => ({
+              id,
+              title,
+              userTo: {...userTo},
+              answer: answer ? {...answer} : null,
             }),
           ),
-          followersCount: result.user.followers.totalCount,
+          recievedPrejudices: result.user.preduicesRecieved.nodes.map(
+            ({id, title, userFrom, answer}) => ({
+              id,
+              title,
+              userFrom: {...userFrom},
+              answer: answer ? {...answer} : null,
+            }),
+          ),
+          answers: [],
         },
       },
     };

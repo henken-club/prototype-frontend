@@ -10,7 +10,7 @@ export type ViewProps = {
 export const View: React.VFC<ViewProps> = ({className}) => {
   return (
     <div className={clsx(className)}>
-      <p>This page is yours</p>
+      <p className={clsx('text-white')}>This page is yours</p>
     </div>
   );
 };
