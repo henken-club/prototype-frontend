@@ -2,5 +2,22 @@ query UserPage($alias: ID!) {
   user(alias: $alias) {
     alias
     displayName
+    picture
+    followers(limit: 16) {
+      totalCount
+      nodes {
+        alias
+        displayName
+        picture
+      }
+    }
+    following(limit: 16) {
+      totalCount
+      nodes {
+        alias
+        displayName
+        picture
+      }
+    }
   }
 }

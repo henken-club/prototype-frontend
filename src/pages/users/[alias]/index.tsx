@@ -5,7 +5,17 @@ import {Merge} from 'type-fest';
 import {graphqlSdk} from '~/graphql/graphql-request';
 import {UserTemplate} from '~/template/User';
 
-export type StaticProps = {user: {alias: string; displayName: string | null}};
+export type StaticProps = {
+  user: {
+    alias: string;
+    displayName: string;
+    picture: string;
+    following: {alias: string; displayName: string; picture: string}[];
+    followingCount: number;
+    followers: {alias: string; displayName: string; picture: string}[];
+    followersCount: number;
+  };
+};
 export type UrlQuery = {alias: string};
 
 export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
@@ -19,7 +29,24 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
       props: {
         user: {
           alias: result.user.alias,
-          displayName: result.user.displayName || null,
+          displayName: result.user.displayName,
+          picture: result.user.picture,
+          following: result.user.following.nodes.map(
+            ({alias, displayName, picture}) => ({
+              alias,
+              displayName,
+              picture,
+            }),
+          ),
+          followingCount: result.user.following.totalCount,
+          followers: result.user.followers.nodes.map(
+            ({alias, displayName, picture}) => ({
+              alias,
+              displayName,
+              picture,
+            }),
+          ),
+          followersCount: result.user.followers.totalCount,
         },
       },
     };
