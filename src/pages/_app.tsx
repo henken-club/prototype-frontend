@@ -4,6 +4,7 @@ import {ApolloProvider} from '@apollo/client';
 import {config} from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import {RecoilRoot, useRecoilValue, useSetRecoilState} from 'recoil';
+import {useEffectOnce} from 'react-use';
 
 import {createApolloClient, useViewerLazyQuery} from '~/graphql/apollo';
 import '~/styles/index.css';
@@ -13,25 +14,24 @@ import {DefaultLayout} from '~/components/layouts/Default';
 config.autoAddCss = false;
 
 export const Viewer: React.VFC<Record<string, never>> = ({...props}) => {
-  const [loader, {data, loading, called}] = useViewerLazyQuery();
+  const [loader, {data, loading}] = useViewerLazyQuery();
 
   const viewer = useRecoilValue(viewerState);
   const setViewer = useSetRecoilState(viewerState);
 
-  useEffect(() => {
-    if (!called && viewer === undefined) {
-      loader();
-      setViewer(null);
-    }
-  }, [called, viewer, loader, setViewer]);
+  useEffectOnce(() => {
+    loader();
+    if (!viewer) setViewer(null);
+  });
 
   useEffect(() => {
-    if (data)
+    if (!loading && !data) setViewer(undefined);
+    else if (!loading && data)
       setViewer({
         alias: data.viewer.alias,
         displayName: data.viewer.displayName || null,
       });
-  }, [data, setViewer]);
+  }, [loading, data, setViewer]);
 
   return <></>;
 };
