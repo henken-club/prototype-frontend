@@ -2,6 +2,7 @@ import {Meta, Story} from '@storybook/react';
 import clsx from 'clsx';
 import React from 'react';
 
+import * as assets from '~~/.storybook/assets';
 import {View, ViewProps} from './index';
 
 export default {
@@ -38,5 +39,6 @@ LoggedIn.args = {
   viewer: {
     alias: 'alias',
     displayName: 'DisplayName',
+    picture: assets.icon(),
   },
 };

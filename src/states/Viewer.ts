@@ -2,7 +2,8 @@ import {atom} from 'recoil';
 
 export type Viewer = {
   alias: string;
-  displayName: string | null;
+  displayName: string;
+  picture: string;
 };
 
 export const viewerState = atom<

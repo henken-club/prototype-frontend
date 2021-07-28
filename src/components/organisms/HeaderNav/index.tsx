@@ -11,7 +11,7 @@ import {viewerState} from '~/states/Viewer';
 export type ViewProps = {className?: string} & (
   | {login: false}
   | {login: true; viewer: null}
-  | {login: true; viewer: {alias: string; displayName: string | null}}
+  | {login: true; viewer: {alias: string; displayName: string; picture: string}}
 );
 export const View: React.VFC<ViewProps> = ({className, ...props}) => {
   return (
@@ -42,12 +42,5 @@ export const HeaderNav: React.VFC<ComponentProps> = ({...props}) => {
 
   if (viewer === undefined) return <View {...props} login={false} />;
   else if (viewer === null) return <View {...props} login viewer={null} />;
-  else
-    return (
-      <View
-        {...props}
-        login
-        viewer={{alias: viewer.alias, displayName: viewer.displayName}}
-      />
-    );
+  else return <View {...props} login viewer={{...viewer}} />;
 };

@@ -29,7 +29,8 @@ export const Viewer: React.VFC<Record<string, never>> = ({...props}) => {
     else if (!loading && data)
       setViewer({
         alias: data.viewer.alias,
-        displayName: data.viewer.displayName || null,
+        displayName: data.viewer.displayName,
+        picture: data.viewer.picture,
       });
   }, [loading, data, setViewer]);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import clsx from 'clsx';
 
 export type UserIconProps = {
   alias: string;
@@ -14,6 +15,7 @@ export const UserIcon: React.VFC<UserIconProps> = ({
   size,
 }) => (
   <Image
+    className={clsx('rounded-full')}
     src={picture}
     alt={`${displayName}(@${alias})`}
     width={size}

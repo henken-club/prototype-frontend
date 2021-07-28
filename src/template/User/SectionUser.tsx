@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 import React from 'react';
-import Image from 'next/image';
 
 import {UserGrid} from './UserGrid';
 import {MyPage} from './MyPage';
+
+import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 
 export const SectionUser: React.VFC<{
   className?: string;
@@ -40,11 +41,11 @@ export const SectionUser: React.VFC<{
       )}
     >
       <div className={clsx('flex', ['w-24', 'md:w-64'])}>
-        <Image
-          src={picture}
-          alt={`${displayName}(@${alias})`}
-          width={256}
-          height={256}
+        <UserIcon
+          alias={alias}
+          displayName={displayName}
+          picture={picture}
+          size={256}
         />
       </div>
       <div className={clsx(['ml-4', 'md:ml-0'], ['flex', 'flex-col'])}>
