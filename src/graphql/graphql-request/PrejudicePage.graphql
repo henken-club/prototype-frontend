@@ -1,0 +1,15 @@
+query PrejudicePage($id: ID!) {
+  prejudice(id: $id) {
+    title
+    userTo {
+      alias
+      displayName
+      picture
+    }
+    userFrom {
+      alias
+      displayName
+      picture
+    }
+  }
+}

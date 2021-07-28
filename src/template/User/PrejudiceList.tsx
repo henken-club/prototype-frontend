@@ -6,22 +6,20 @@ import {UserIconLink} from '~/components/atoms/UserIconLink';
 
 export const Prejudice: React.VFC<{
   className?: string;
-  prejudice: {
-    id: string;
-    title: string;
-    userFrom: {
-      alias: string;
-      displayName: string;
-      picture: string;
-    };
-    userTo: {
-      alias: string;
-      displayName: string;
-      picture: string;
-    };
-    answer: {id: string} | null;
+  id: string;
+  title: string;
+  userFrom: {
+    alias: string;
+    displayName: string;
+    picture: string;
   };
-}> = ({className, prejudice: {id, title, userFrom, userTo, answer}}) => (
+  userTo: {
+    alias: string;
+    displayName: string;
+    picture: string;
+  };
+  answer: {id: string} | null;
+}> = ({className, id, title, userFrom, userTo, answer}) => (
   <div
     className={clsx(
       className,
@@ -33,16 +31,18 @@ export const Prejudice: React.VFC<{
     )}
     key={id}
   >
-    <p
-      className={clsx(
-        ['col-span-full'],
-        ['text-white'],
-        ['text-xl'],
-        ['font-bold'],
-      )}
-    >
-      {title}
-    </p>
+    <NextLink href={`/prejudices/${id}`}>
+      <a
+        className={clsx(
+          ['col-span-full'],
+          ['text-white'],
+          ['text-xl'],
+          ['font-bold'],
+        )}
+      >
+        {title}
+      </a>
+    </NextLink>
     <div className={clsx(['col-span-full'])}>
       {answer && (
         <NextLink href={`/answers/${answer.id}`}>
@@ -68,11 +68,25 @@ export const Prejudice: React.VFC<{
 
 export const PrejudiceList: React.VFC<{
   className?: string;
-  prejudices: React.ComponentProps<typeof Prejudice>['prejudice'][];
+  prejudices: {
+    id: string;
+    title: string;
+    userFrom: {
+      alias: string;
+      displayName: string;
+      picture: string;
+    };
+    userTo: {
+      alias: string;
+      displayName: string;
+      picture: string;
+    };
+    answer: {id: string} | null;
+  }[];
 }> = ({className, prejudices}) => (
   <div className={clsx(className, ['flex', 'flex-col'], ['space-y-4'])}>
     {prejudices.map((prejudice) => (
-      <Prejudice key={prejudice.id} prejudice={prejudice} />
+      <Prejudice key={prejudice.id} {...prejudice} />
     ))}
   </div>
 );

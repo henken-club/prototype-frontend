@@ -194,6 +194,7 @@ enum PrejudicePostRule {
 }
 
 type Query {
+  allPrejudices: [Prejudice!]!
   allUsers: [User!]!
   answer(id: ID!): Answer
   author(id: ID!): Author
