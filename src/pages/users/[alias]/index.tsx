@@ -18,10 +18,10 @@ export type StaticProps = {
       id: string;
       title: string;
       number: number;
-      userRecieved: {alias: string; displayName: string; picture: string};
+      userReceived: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
-    recievedPrejudices: {
+    receivedPrejudices: {
       id: string;
       title: string;
       number: number;
@@ -58,15 +58,15 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
                   })),
                   followersCount: user.followers.totalCount,
                   postedPrejudices: user.postedPrejudices.nodes.map(
-                    ({id, title, number, recieved, answer}) => ({
+                    ({id, title, number, received, answer}) => ({
                       id,
                       title,
                       number,
-                      userRecieved: {...recieved},
+                      userReceived: {...received},
                       answer: answer ? {id: answer.id} : null,
                     }),
                   ),
-                  recievedPrejudices: user.recievedPrejudices.nodes.map(
+                  receivedPrejudices: user.receivedPrejudices.nodes.map(
                     ({id, title, number, posted, answer}) => ({
                       id,
                       title,

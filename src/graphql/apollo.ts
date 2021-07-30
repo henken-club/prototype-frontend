@@ -18,7 +18,7 @@ export const isTokenExpired = (token: string): boolean => {
 };
 
 export const getNewAccessToken = (): Promise<string> => {
-  return fetch('/api/reflesh', {
+  return fetch('/api/refresh', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
   }).then((data) => data.text());

@@ -10,16 +10,16 @@ export const handler: NextApiHandler = async (req, res) => {
     res.end();
     return;
   }
-  const refleshToken = parseCookies({req})?.[API_REFRESH_TOKEN_KEY];
-  if (!refleshToken) {
+  const refreshToken = parseCookies({req})?.[API_REFRESH_TOKEN_KEY];
+  if (!refreshToken) {
     res.status(401);
     res.end();
     return;
   }
 
   await graphqlSdk
-    .Reflesh({token: refleshToken})
-    .then(({refleshToken}) => refleshToken.tokens.accessToken)
+    .Refresh({token: refreshToken})
+    .then(({refreshToken}) => refreshToken.tokens.accessToken)
     .then((accessToken) => {
       res.status(200);
       res.send(accessToken);

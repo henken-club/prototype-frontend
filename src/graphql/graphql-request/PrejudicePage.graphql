@@ -1,8 +1,8 @@
-query PrejudicePage($posted: ID!, $recieved: ID!, $number: Int!) {
+query PrejudicePage($posted: ID!, $received: ID!, $number: Int!) {
   getPrejudice(
     input: {
       posted: {alias: $posted}
-      received: {alias: $recieved}
+      received: {alias: $received}
       number: $number
     }
   ) {

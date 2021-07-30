@@ -26,7 +26,7 @@ query UserPage($alias: ID!) {
           title
           createdAt
           number
-          recieved: userTo {
+          received: userTo {
             alias
             displayName
             picture
@@ -36,7 +36,7 @@ query UserPage($alias: ID!) {
           }
         }
       }
-      recievedPrejudices {
+      receivedPrejudices {
         nodes {
           id
           title

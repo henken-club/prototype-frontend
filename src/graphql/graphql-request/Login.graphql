@@ -2,7 +2,7 @@ mutation Login($input: LoginInput!) {
   login(input: $input) {
     tokens {
       accessToken
-      refleshToken
+      refreshToken
     }
   }
 }

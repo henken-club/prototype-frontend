@@ -20,32 +20,32 @@ export const NextLink: React.FC<NextLinkProps> = ({...props}) => (
 
 export type PrejudiceNextLinkProps = Merge<
   Omit<NextLinkProps, 'href'>,
-  {posted: string; recieved: string; number: number}
+  {posted: string; received: string; number: number}
 >;
 export const PrejudiceNextLink: React.FC<PrejudiceNextLinkProps> = ({
   posted,
-  recieved,
+  received,
   number,
   ...props
 }) => (
   <NextLink
     {...props}
-    href={`/prejudices/${posted}/${recieved}/${String(number)}`}
+    href={`/prejudices/${posted}/${received}/${String(number)}`}
   />
 );
 
 export type AnswerNextLinkProps = Merge<
   Omit<NextLinkProps, 'href'>,
-  {posted: string; recieved: string; number: number}
+  {posted: string; received: string; number: number}
 >;
 export const AnswerNextLink: React.FC<AnswerNextLinkProps> = ({
   posted,
-  recieved,
+  received,
   number,
   ...props
 }) => (
   <NextLink
     {...props}
-    href={`/answers/${posted}/${recieved}/${String(number)}`}
+    href={`/answers/${posted}/${received}/${String(number)}`}
   />
 );

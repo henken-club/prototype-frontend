@@ -37,7 +37,7 @@ export const handler: NextApiHandler = async (req, res) => {
       .Login({input})
       .then(({login}) => login.tokens);
 
-    setCookie({res}, API_REFRESH_TOKEN_KEY!, tokens.refleshToken);
+    setCookie({res}, API_REFRESH_TOKEN_KEY!, tokens.refreshToken);
 
     res.status(200);
     res.send(tokens.accessToken);

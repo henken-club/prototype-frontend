@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import {SectionAnswers} from './SectionAnswers';
-import {SectionPosted, SectionRecived} from './SectionPrejudices';
+import {SectionPosted, SectionReceived} from './SectionPrejudices';
 import {SectionUser} from './SectionUser';
 
 export type ViewProps = {
@@ -19,10 +19,10 @@ export type ViewProps = {
       id: string;
       title: string;
       number: number;
-      userRecieved: {alias: string; displayName: string; picture: string};
+      userReceived: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
-    recievedPrejudices: {
+    receivedPrejudices: {
       id: string;
       title: string;
       number: number;
@@ -66,12 +66,12 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
             picture={user.picture}
             prejudices={user.postedPrejudices}
           />
-          <SectionRecived
+          <SectionReceived
             className={clsx()}
             alias={user.alias}
             displayName={user.displayName}
             picture={user.picture}
-            prejudices={user.recievedPrejudices}
+            prejudices={user.receivedPrejudices}
           />
           <SectionAnswers
             className={clsx()}
@@ -100,10 +100,10 @@ export type ComponentProps = {
       id: string;
       title: string;
       number: number;
-      userRecieved: {alias: string; displayName: string; picture: string};
+      userReceived: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
-    recievedPrejudices: {
+    receivedPrejudices: {
       id: string;
       title: string;
       number: number;

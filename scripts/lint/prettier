@@ -3,6 +3,7 @@
 prettier --check **/*.{json,yml} $@
 
 prettier --check --parser=json $@ \
+  .cspell.json \
   .eslintrc \
   .prettierrc \
   .babelrc

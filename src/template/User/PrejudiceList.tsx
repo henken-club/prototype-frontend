@@ -18,7 +18,7 @@ export const Prejudice: React.VFC<{
     displayName: string;
     picture: string;
   };
-  userRecieved: {
+  userReceived: {
     alias: string;
     displayName: string;
     picture: string;
@@ -30,7 +30,7 @@ export const Prejudice: React.VFC<{
   title,
   number,
   userPosted: posted,
-  userRecieved: recieved,
+  userReceived: received,
   answer,
 }) => (
   <div
@@ -46,7 +46,7 @@ export const Prejudice: React.VFC<{
   >
     <PrejudiceNextLink
       posted={posted.alias}
-      recieved={recieved.alias}
+      received={received.alias}
       number={number}
     >
       <a
@@ -64,7 +64,7 @@ export const Prejudice: React.VFC<{
       {answer && (
         <AnswerNextLink
           posted={posted.alias}
-          recieved={recieved.alias}
+          received={received.alias}
           number={number}
         >
           <a className={clsx('text-gray-400')}>回答済み</a>
@@ -79,9 +79,9 @@ export const Prejudice: React.VFC<{
       </NextLink>
     </div>
     <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
-      <UserIconLink {...recieved} size={32} />
-      <NextLink href={`/users/${recieved.alias}`}>
-        <a className={clsx('text-white')}>{recieved.displayName}</a>
+      <UserIconLink {...received} size={32} />
+      <NextLink href={`/users/${received.alias}`}>
+        <a className={clsx('text-white')}>{received.displayName}</a>
       </NextLink>
     </div>
   </div>
@@ -98,7 +98,7 @@ export const PrejudiceList: React.VFC<{
       displayName: string;
       picture: string;
     };
-    userRecieved: {
+    userReceived: {
       alias: string;
       displayName: string;
       picture: string;

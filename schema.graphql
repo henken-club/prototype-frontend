@@ -42,10 +42,10 @@ enum AnswerOrderField {
 }
 
 type Author {
-  booksWrited(limit: Int = 10, orderBy: BookOrder = {direction: ASC, field: TITLE}, skip: Int = 0): BookConnection!
   id: ID!
   name: String!
   userResponsibleFor: [User!]!
+  writesBooks(limit: Int = 10, orderBy: BookOrder = {direction: ASC, field: TITLE}, skip: Int = 0): BookConnection!
 }
 
 type AuthorConnection {
@@ -160,7 +160,7 @@ type Mutation {
   login(input: LoginInput!): LoginPayload!
   postAnswer(input: PostAnswerInput!): PostAnswerPayload!
   postPrejudice(input: PostPrejudiceInput!): PostPrejudicePayload!
-  refleshToken(input: RefleshTokenInput!): RefleshTokenPayload!
+  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
   signup(input: SignupInput!): SignupPayload!
   unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload!
 }
@@ -242,11 +242,11 @@ type Query {
   viewer: User!
 }
 
-input RefleshTokenInput {
+input RefreshTokenInput {
   token: String!
 }
 
-type RefleshTokenPayload {
+type RefreshTokenPayload {
   tokens: TokensData!
 }
 
@@ -266,7 +266,7 @@ type SignupPayload {
 
 type TokensData {
   accessToken: String!
-  refleshToken: String!
+  refreshToken: String!
 }
 
 type Unfollow {
@@ -292,7 +292,7 @@ type User {
   picture: String!
   postedAnswers(limit: Int = 10, orderBy: AnswerOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): AnswerConnection!
   postedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
-  recievedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
+  receivedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
 }
 
 type UserConnection {

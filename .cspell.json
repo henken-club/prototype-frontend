@@ -1,0 +1,13 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "words": ["clsx", "codegen", "fontawesome", "fortawesome"],
+  "ignorePaths": [
+    "node_modules/**",
+    ".vscode/extensions.json",
+    "./package.json",
+    "./yarn.lock",
+    "./schema.graphql",
+    "src/graphql/codegen"
+  ]
+}

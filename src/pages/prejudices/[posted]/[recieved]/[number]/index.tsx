@@ -20,14 +20,14 @@ export type StaticProps = {
     };
   };
 };
-export type UrlQuery = {posted: string; recieved: string; number: string};
+export type UrlQuery = {posted: string; received: string; number: string};
 
 export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
   async ({params}) => {
     if (
       !params ||
       !params.posted ||
-      !params.recieved ||
+      !params.received ||
       !(params.number && parseInt(params.number, 10))
     )
       throw new Error('Invalid parameters.');
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
     return graphqlSdk
       .PrejudicePage({
         posted: params.posted,
-        recieved: params.recieved,
+        received: params.received,
         number: parseInt(params.number, 10),
       })
       .then(({getPrejudice: {prejudice}}) =>

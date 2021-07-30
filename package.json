@@ -24,6 +24,7 @@
     "lint": "scripty",
     "lint:eslint": "scripty",
     "lint:prettier": "scripty",
+    "lint:cspell": "scripty",
     "fmt": "run-s -cn fmt:*",
     "fmt:eslint": "yarn lint:eslint --fix",
     "fmt:prettier": "yarn lint:prettier --write"
@@ -68,6 +69,7 @@
     "@types/styled-components": "^5.1.11",
     "@vercel/node": "^1.11.1",
     "autoprefixer": "^10.3.1",
+    "cspell": "^5.6.6",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
     "eslint-plugin-unused-imports": "^1.1.2",

@@ -5,6 +5,7 @@
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
     "christian-kohler.path-intellisense",
-    "GraphQL.vscode-graphql"
+    "GraphQL.vscode-graphql",
+    "streetsidesoftware.code-spell-checker"
   ]
 }
