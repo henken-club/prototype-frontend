@@ -28,9 +28,10 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
       !params ||
       !params.posted ||
       !params.received ||
-      !(params.number && parseInt(params.number, 10))
+      !params.number ||
+      Number.isNaN(parseInt(params.number, 10))
     )
-      throw new Error('Invalid parameters.');
+      return {notFound: true};
 
     return graphqlSdk
       .PrejudicePage({
