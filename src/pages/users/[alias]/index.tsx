@@ -17,12 +17,16 @@ export type StaticProps = {
     postedPrejudices: {
       id: string;
       title: string;
-      userTo: {alias: string; displayName: string; picture: string};
+      number: number;
+      userRecieved: {alias: string; displayName: string; picture: string};
+      answer: {id: string} | null;
     }[];
     recievedPrejudices: {
       id: string;
       title: string;
-      userFrom: {alias: string; displayName: string; picture: string};
+      number: number;
+      userPosted: {alias: string; displayName: string; picture: string};
+      answer: {id: string} | null;
     }[];
     answers: {
       id: string;
@@ -35,43 +39,48 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
   async ({params}) => {
     if (!params?.alias) throw new Error('Invalid parameters.');
 
-    const result = await graphqlSdk.UserPage({alias: params.alias});
-    if (!result.user) return {notFound: true};
-
-    return {
-      props: {
-        user: {
-          alias: result.user.alias,
-          displayName: result.user.displayName,
-          picture: result.user.picture,
-          following: result.user.following.nodes.map((user) => ({
-            ...user,
-          })),
-          followingCount: result.user.following.totalCount,
-          followers: result.user.followers.nodes.map((user) => ({
-            ...user,
-          })),
-          followersCount: result.user.followers.totalCount,
-          postedPrejudices: result.user.prejudicesPosted.nodes.map(
-            ({id, title, userTo, answer}) => ({
-              id,
-              title,
-              userTo: {...userTo},
-              answer: answer ? {...answer} : null,
-            }),
-          ),
-          recievedPrejudices: result.user.preduicesRecieved.nodes.map(
-            ({id, title, userFrom, answer}) => ({
-              id,
-              title,
-              userFrom: {...userFrom},
-              answer: answer ? {...answer} : null,
-            }),
-          ),
-          answers: [],
-        },
-      },
-    };
+    return graphqlSdk
+      .UserPage({alias: params.alias})
+      .then(({getUser: {user}}) =>
+        user
+          ? {
+              props: {
+                user: {
+                  alias: user.alias,
+                  displayName: user.displayName,
+                  picture: user.picture,
+                  following: user.following.nodes.map((user) => ({
+                    ...user,
+                  })),
+                  followingCount: user.following.totalCount,
+                  followers: user.followers.nodes.map((user) => ({
+                    ...user,
+                  })),
+                  followersCount: user.followers.totalCount,
+                  postedPrejudices: user.postedPrejudices.nodes.map(
+                    ({id, title, number, recieved, answer}) => ({
+                      id,
+                      title,
+                      number,
+                      userRecieved: {...recieved},
+                      answer: answer ? {id: answer.id} : null,
+                    }),
+                  ),
+                  recievedPrejudices: user.recievedPrejudices.nodes.map(
+                    ({id, title, number, posted, answer}) => ({
+                      id,
+                      title,
+                      number,
+                      userPosted: {...posted},
+                      answer: answer ? {...answer} : null,
+                    }),
+                  ),
+                  answers: [],
+                },
+              },
+            }
+          : {notFound: true},
+      );
   };
 
 export type PageProps = Merge<

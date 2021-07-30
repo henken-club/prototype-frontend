@@ -1,25 +1,38 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {NextLink} from '~/components/atoms/NextLink';
+import {
+  AnswerNextLink,
+  NextLink,
+  PrejudiceNextLink,
+} from '~/components/atoms/NextLink';
 import {UserIconLink} from '~/components/atoms/UserIconLink';
 
 export const Prejudice: React.VFC<{
   className?: string;
   id: string;
   title: string;
-  userFrom: {
+  number: number;
+  userPosted: {
     alias: string;
     displayName: string;
     picture: string;
   };
-  userTo: {
+  userRecieved: {
     alias: string;
     displayName: string;
     picture: string;
   };
   answer: {id: string} | null;
-}> = ({className, id, title, userFrom, userTo, answer}) => (
+}> = ({
+  className,
+  id,
+  title,
+  number,
+  userPosted: posted,
+  userRecieved: recieved,
+  answer,
+}) => (
   <div
     className={clsx(
       className,
@@ -31,7 +44,11 @@ export const Prejudice: React.VFC<{
     )}
     key={id}
   >
-    <NextLink href={`/prejudices/${id}`}>
+    <PrejudiceNextLink
+      posted={posted.alias}
+      recieved={recieved.alias}
+      number={number}
+    >
       <a
         className={clsx(
           ['col-span-full'],
@@ -42,25 +59,29 @@ export const Prejudice: React.VFC<{
       >
         {title}
       </a>
-    </NextLink>
+    </PrejudiceNextLink>
     <div className={clsx(['col-span-full'])}>
       {answer && (
-        <NextLink href={`/answers/${answer.id}`}>
+        <AnswerNextLink
+          posted={posted.alias}
+          recieved={recieved.alias}
+          number={number}
+        >
           <a className={clsx('text-gray-400')}>回答済み</a>
-        </NextLink>
+        </AnswerNextLink>
       )}
       {!answer && <span className={clsx('text-gray-400')}>未回答</span>}
     </div>
     <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
-      <UserIconLink {...userFrom} size={32} />
-      <NextLink href={`/users/${userFrom.alias}`}>
-        <a className={clsx('text-white')}>{userFrom.displayName}</a>
+      <UserIconLink {...posted} size={32} />
+      <NextLink href={`/users/${posted.alias}`}>
+        <a className={clsx('text-white')}>{posted.displayName}</a>
       </NextLink>
     </div>
     <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
-      <UserIconLink {...userTo} size={32} />
-      <NextLink href={`/users/${userTo.alias}`}>
-        <a className={clsx('text-white')}>{userTo.displayName}</a>
+      <UserIconLink {...recieved} size={32} />
+      <NextLink href={`/users/${recieved.alias}`}>
+        <a className={clsx('text-white')}>{recieved.displayName}</a>
       </NextLink>
     </div>
   </div>
@@ -71,12 +92,13 @@ export const PrejudiceList: React.VFC<{
   prejudices: {
     id: string;
     title: string;
-    userFrom: {
+    number: number;
+    userPosted: {
       alias: string;
       displayName: string;
       picture: string;
     };
-    userTo: {
+    userRecieved: {
       alias: string;
       displayName: string;
       picture: string;

@@ -9,8 +9,9 @@ export const SectionPrejudices: React.VFC<{
   prejudices: {
     id: string;
     title: string;
-    userFrom: {alias: string; displayName: string; picture: string};
-    userTo: {alias: string; displayName: string; picture: string};
+    number: number;
+    userPosted: {alias: string; displayName: string; picture: string};
+    userRecieved: {alias: string; displayName: string; picture: string};
     answer: {id: string} | null;
   }[];
 }> = ({className, i18n, prejudices}) => (
@@ -35,7 +36,8 @@ export const SectionPosted: React.VFC<{
   prejudices: {
     id: string;
     title: string;
-    userTo: {alias: string; displayName: string; picture: string};
+    number: number;
+    userRecieved: {alias: string; displayName: string; picture: string};
     answer: {id: string} | null;
   }[];
 }> = ({picture, displayName, alias, prejudices, ...props}) => (
@@ -44,7 +46,7 @@ export const SectionPosted: React.VFC<{
     i18n={{title: '送信した偏見'}}
     prejudices={prejudices.map((prejudice) => ({
       ...prejudice,
-      userFrom: {
+      userPosted: {
         alias,
         displayName,
         picture,
@@ -61,7 +63,8 @@ export const SectionRecived: React.VFC<{
   prejudices: {
     id: string;
     title: string;
-    userFrom: {alias: string; displayName: string; picture: string};
+    number: number;
+    userPosted: {alias: string; displayName: string; picture: string};
     answer: {id: string} | null;
   }[];
 }> = ({picture, displayName, alias, prejudices, ...props}) => (
@@ -70,7 +73,7 @@ export const SectionRecived: React.VFC<{
     i18n={{title: '受け取った偏見'}}
     prejudices={prejudices.map((prejudice) => ({
       ...prejudice,
-      userTo: {
+      userRecieved: {
         alias,
         displayName,
         picture,

@@ -18,13 +18,15 @@ export type ViewProps = {
     postedPrejudices: {
       id: string;
       title: string;
-      userTo: {alias: string; displayName: string; picture: string};
+      number: number;
+      userRecieved: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
     recievedPrejudices: {
       id: string;
       title: string;
-      userFrom: {alias: string; displayName: string; picture: string};
+      number: number;
+      userPosted: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
     answers: {
@@ -97,13 +99,15 @@ export type ComponentProps = {
     postedPrejudices: {
       id: string;
       title: string;
-      userTo: {alias: string; displayName: string; picture: string};
+      number: number;
+      userRecieved: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
     recievedPrejudices: {
       id: string;
       title: string;
-      userFrom: {alias: string; displayName: string; picture: string};
+      number: number;
+      userPosted: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
     answers: {

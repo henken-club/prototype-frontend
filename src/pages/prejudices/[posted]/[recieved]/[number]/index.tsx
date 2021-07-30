@@ -20,24 +20,37 @@ export type StaticProps = {
     };
   };
 };
-export type UrlQuery = {id: string};
+export type UrlQuery = {posted: string; recieved: string; number: string};
 
 export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
   async ({params}) => {
-    if (!params?.id) throw new Error('Invalid parameters.');
+    if (
+      !params ||
+      !params.posted ||
+      !params.recieved ||
+      !(params.number && parseInt(params.number, 10))
+    )
+      throw new Error('Invalid parameters.');
 
-    const result = await graphqlSdk.PrejudicePage({id: params.id});
-    if (!result.prejudice) return {notFound: true};
-
-    return {
-      props: {
-        prejudice: {
-          title: result.prejudice.title,
-          userFrom: {...result.prejudice.userFrom},
-          userTo: {...result.prejudice.userTo},
-        },
-      },
-    };
+    return graphqlSdk
+      .PrejudicePage({
+        posted: params.posted,
+        recieved: params.recieved,
+        number: parseInt(params.number, 10),
+      })
+      .then(({getPrejudice: {prejudice}}) =>
+        prejudice
+          ? {
+              props: {
+                prejudice: {
+                  title: prejudice.title,
+                  userFrom: {...prejudice.userFrom},
+                  userTo: {...prejudice.userTo},
+                },
+              },
+            }
+          : {notFound: true},
+      );
   };
 
 export type PageProps = Merge<

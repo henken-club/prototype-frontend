@@ -24,7 +24,7 @@ type Answer {
   correctness: Correctness!
   createdAt: DateTime!
   id: ID!
-  prejudiceTo: Prejudice!
+  prejudice: Prejudice!
   text: String
 }
 
@@ -96,7 +96,7 @@ type Follow {
 }
 
 input FollowUserInput {
-  userId: ID!
+  user: GetUserInput!
 }
 
 type FollowUserPayload {
@@ -111,6 +111,37 @@ type FollowerConnection {
 type FollowingConnection {
   nodes: [User!]!
   totalCount: Int!
+}
+
+input GetAnswerInput {
+  number: Int!
+  posted: UserUniqueUnion!
+  received: UserUniqueUnion!
+}
+
+type GetAnswerResult {
+  answer: Answer
+  possibility: Boolean!
+}
+
+input GetPrejudiceInput {
+  number: Int!
+  posted: UserUniqueUnion!
+  received: UserUniqueUnion!
+}
+
+type GetPrejudiceResult {
+  possibility: Boolean!
+  prejudice: Prejudice
+}
+
+input GetUserInput {
+  alias: ID
+  id: ID
+}
+
+type GetUserResult {
+  user: User
 }
 
 input LoginInput {
@@ -155,9 +186,9 @@ type PostAnswerPayload {
 }
 
 input PostPrejudiceInput {
+  receivedUser: UserUniqueUnion!
   relatedBooks: [ID!]!
   title: String!
-  userId: ID!
 }
 
 type PostPrejudicePayload {
@@ -169,6 +200,7 @@ type Prejudice {
   book: Book!
   createdAt: DateTime!
   id: ID!
+  number: Int!
   relatedBooks(limit: Int = 10, orderBy: BookOrder = {direction: ASC, field: TITLE}, skip: Int = 0): BookConnection!
   title: String!
   userFrom: User!
@@ -194,13 +226,19 @@ enum PrejudicePostRule {
 }
 
 type Query {
+  allAnswers: [Answer!]!
+  allAuthors: [Author!]!
+  allBooks: [Book!]!
   allPrejudices: [Prejudice!]!
   allUsers: [User!]!
-  answer(id: ID!): Answer
+  answer(id: ID!): Answer!
   author(id: ID!): Author
   book(id: ID!): Book
+  getAnswer(input: GetAnswerInput!): GetAnswerResult!
+  getPrejudice(input: GetPrejudiceInput!): GetPrejudiceResult!
+  getUser(input: GetUserInput!): GetUserResult!
   prejudice(id: ID!): Prejudice
-  user(alias: ID!): User
+  user(id: ID!): User
   viewer: User!
 }
 
@@ -237,7 +275,7 @@ type Unfollow {
 }
 
 input UnfollowUserInput {
-  userId: ID!
+  user: GetUserInput!
 }
 
 type UnfollowUserPayload {
@@ -246,18 +284,23 @@ type UnfollowUserPayload {
 
 type User {
   alias: ID!
-  answersPosted(limit: Int = 10, orderBy: AnswerOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): AnswerConnection!
   canPostPrejudiceTo: Boolean!
   displayName: String!
   followers(limit: Int = 10, skip: Int = 0): FollowerConnection!
   following(limit: Int = 10, skip: Int = 0): FollowingConnection!
   id: ID!
   picture: String!
-  preduicesRecieved(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
-  prejudicesPosted(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
+  postedAnswers(limit: Int = 10, orderBy: AnswerOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): AnswerConnection!
+  postedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
+  recievedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
 }
 
 type UserConnection {
   nodes: [User!]!
   totalCount: Int!
+}
+
+input UserUniqueUnion {
+  alias: ID
+  id: ID
 }
