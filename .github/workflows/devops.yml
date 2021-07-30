@@ -44,7 +44,7 @@ jobs:
           node-version: 14
       - uses: bahmutov/npm-install@v1
       - run: yarn run codegen
-      - run: yarn run ts-check
+      - run: yarn run typecheck
 
   build:
     name: Build
@@ -63,7 +63,7 @@ jobs:
   docker-frontend:
     name: Docker for frontend
     needs:
-      - ts-check
+      - typecheck
       - build
     runs-on: ubuntu-latest
     steps:
