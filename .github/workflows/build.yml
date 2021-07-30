@@ -8,6 +8,7 @@ on:
 
 env:
   FRONTEND_IMAGE_NAME: prototype-frontend
+  ALLOWED_IMAGE_DOMAIN: 'henken.club'
 
 jobs:
   ts-check:
@@ -33,6 +34,8 @@ jobs:
       - uses: bahmutov/npm-install@v1
       - run: yarn run codegen
       - run: yarn run build
+        env:
+          ALLOWED_IMAGE_DOMAIN: ${{ env.ALLOWED_IMAGE_DOMAIN }}
 
   docker-frontend:
     name: Docker for frontend
