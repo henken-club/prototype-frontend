@@ -25,7 +25,7 @@ export const SectionUser: React.VFC<{
   following,
   followingCount,
 }) => (
-  <section
+  <header
     className={clsx(
       className,
       [['grid'], ['grid-cols-1', 'sm:grid-cols-2']],
@@ -70,5 +70,5 @@ export const SectionUser: React.VFC<{
       </p>
       <UserGrid className={clsx('mt-2')} users={following} />
     </div>
-  </section>
+  </header>
 );

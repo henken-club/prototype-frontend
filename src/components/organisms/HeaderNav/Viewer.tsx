@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, {useState} from 'react';
 
-import {NextLink} from '~/components/atoms/NextLink';
+import {UserNextLink} from '~/components/atoms/NextLink';
 import {UserIconLink} from '~/components/atoms/UserIconLink';
 
 export type ViewProps = {
@@ -26,13 +26,13 @@ export const View: React.VFC<ViewProps> = ({
         displayName={displayName}
         picture={picture}
       />
-      <NextLink href={`/users/${alias}`}>
+      <UserNextLink alias={alias}>
         <a
           className={clsx('ml-2', ['text-white'], ['text-sm', 'md:text-base'])}
         >
           {name}
         </a>
-      </NextLink>
+      </UserNextLink>
     </div>
   );
 };

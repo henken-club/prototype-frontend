@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {NextLink} from '~/components/atoms/NextLink';
+import {UserNextLink} from '~/components/atoms/NextLink';
 import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 
 export const UserIconLink: React.VFC<{
@@ -11,7 +11,7 @@ export const UserIconLink: React.VFC<{
   picture: string;
   size: number;
 }> = ({className, alias, displayName, picture, size}) => (
-  <NextLink href={`/users/${alias}`}>
+  <UserNextLink alias={alias}>
     <a className={clsx(className, 'flex')}>
       <UserIcon
         alias={alias}
@@ -20,5 +20,5 @@ export const UserIconLink: React.VFC<{
         size={size}
       />
     </a>
-  </NextLink>
+  </UserNextLink>
 );

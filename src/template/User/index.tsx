@@ -2,8 +2,11 @@ import clsx from 'clsx';
 import React from 'react';
 
 import {SectionAnswers} from './SectionAnswers';
-import {SectionPosted, SectionReceived} from './SectionPrejudices';
-import {SectionUser} from './SectionUser';
+import {
+  SectionPostedPrejudices,
+  SectionReceivedPrejudices,
+} from './SectionPrejudices';
+import {SectionUser} from './HeaderUser';
 
 export type ViewProps = {
   className?: string;
@@ -59,14 +62,14 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
             ['gap-y-4', 'md:gap-x-0'],
           )}
         >
-          <SectionPosted
+          <SectionPostedPrejudices
             className={clsx()}
             alias={user.alias}
             displayName={user.displayName}
             picture={user.picture}
             prejudices={user.postedPrejudices}
           />
-          <SectionReceived
+          <SectionReceivedPrejudices
             className={clsx()}
             alias={user.alias}
             displayName={user.displayName}

@@ -20,14 +20,14 @@ export type StaticProps = {
     };
   };
 };
-export type UrlQuery = {posted: string; received: string; number: string};
+export type UrlQuery = {alias: string; posted: string; number: string};
 
 export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
   async ({params}) => {
     if (
       !params ||
+      !params.alias ||
       !params.posted ||
-      !params.received ||
       !params.number ||
       Number.isNaN(parseInt(params.number, 10))
     )
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
     return graphqlSdk
       .PrejudicePage({
         posted: params.posted,
-        received: params.received,
+        received: params.alias,
         number: parseInt(params.number, 10),
       })
       .then(({getPrejudice: {prejudice}}) =>

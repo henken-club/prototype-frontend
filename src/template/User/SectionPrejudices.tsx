@@ -1,34 +1,24 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {PrejudiceList} from './PrejudiceList';
+import {PrejudiceFromList, PrejudiceToList} from './PrejudiceList';
 
-export const SectionPrejudices: React.VFC<{
+export const SectionPrejudicesTemplate: React.VFC<{
   className?: string;
   i18n: Record<'title', string>;
-  prejudices: {
-    id: string;
-    title: string;
-    number: number;
-    userPosted: {alias: string; displayName: string; picture: string};
-    userReceived: {alias: string; displayName: string; picture: string};
-    answer: {id: string} | null;
-  }[];
-}> = ({className, i18n, prejudices}) => (
+  count: number;
+  PrejudicesList: React.VFC<{className?: string}>;
+}> = ({className, i18n, PrejudicesList, count}) => (
   <section className={clsx(className, ['flex', 'flex-col'])}>
     <h2 className={clsx(['text-white'], ['text-2xl'], ['font-bold'])}>
       {i18n.title}
     </h2>
-    {prejudices.length > 0 && (
-      <PrejudiceList className={clsx('mt-4')} prejudices={prejudices} />
-    )}
-    {prejudices.length === 0 && (
-      <p className={clsx('mt-4', ['text-white'])}>ﾅｲﾖｰ</p>
-    )}
+    {count > 0 && <PrejudicesList className={clsx('mt-4')} />}
+    {count === 0 && <p className={clsx('mt-4', ['text-white'])}>ﾅｲﾖｰ</p>}
   </section>
 );
 
-export const SectionPosted: React.VFC<{
+export const SectionPostedPrejudices: React.VFC<{
   className?: string;
   alias: string;
   displayName: string;
@@ -41,21 +31,23 @@ export const SectionPosted: React.VFC<{
     answer: {id: string} | null;
   }[];
 }> = ({picture, displayName, alias, prejudices, ...props}) => (
-  <SectionPrejudices
+  <SectionPrejudicesTemplate
     {...props}
     i18n={{title: '送信した偏見'}}
-    prejudices={prejudices.map((prejudice) => ({
-      ...prejudice,
-      userPosted: {
-        alias,
-        displayName,
-        picture,
-      },
-    }))}
+    count={prejudices.length}
+    PrejudicesList={(props) => (
+      <PrejudiceToList
+        {...props}
+        prejudices={prejudices.map((prejudice) => ({
+          ...prejudice,
+          userPosted: {alias, displayName, picture},
+        }))}
+      />
+    )}
   />
 );
 
-export const SectionReceived: React.VFC<{
+export const SectionReceivedPrejudices: React.VFC<{
   className?: string;
   alias: string;
   displayName: string;
@@ -68,16 +60,18 @@ export const SectionReceived: React.VFC<{
     answer: {id: string} | null;
   }[];
 }> = ({picture, displayName, alias, prejudices, ...props}) => (
-  <SectionPrejudices
+  <SectionPrejudicesTemplate
     {...props}
     i18n={{title: '受け取った偏見'}}
-    prejudices={prejudices.map((prejudice) => ({
-      ...prejudice,
-      userReceived: {
-        alias,
-        displayName,
-        picture,
-      },
-    }))}
+    count={prejudices.length}
+    PrejudicesList={(props) => (
+      <PrejudiceFromList
+        {...props}
+        prejudices={prejudices.map((prejudice) => ({
+          ...prejudice,
+          userReceived: {alias, displayName, picture},
+        }))}
+      />
+    )}
   />
 );
