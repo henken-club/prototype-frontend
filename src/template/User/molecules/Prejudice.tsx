@@ -12,7 +12,6 @@ import {UserIconLink} from '~/components/atoms/UserIconLink';
 
 export const PrejudiceTemplate: React.VFC<{
   className?: string;
-  id: string;
   title: string;
   number: number;
   userPosted: {alias: string; displayName: string; picture: string};
@@ -22,7 +21,6 @@ export const PrejudiceTemplate: React.VFC<{
   AnswerNextLink: React.FC;
 }> = ({
   className,
-  id,
   title,
   userPosted,
   userReceived,
@@ -39,7 +37,6 @@ export const PrejudiceTemplate: React.VFC<{
       ['px-6'],
       ['py-2'],
     )}
-    key={id}
   >
     <PrejudiceNextLink>
       <a
@@ -62,15 +59,19 @@ export const PrejudiceTemplate: React.VFC<{
       {!answer && <span className={clsx('text-gray-400')}>未回答</span>}
     </div>
     <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
-      <UserIconLink {...userPosted} size={32} />
+      <UserIconLink {...userPosted} size={24} />
       <UserNextLink alias={userPosted.alias}>
-        <a className={clsx('text-white')}>{userPosted.displayName}</a>
+        <a className={clsx(['ml-1'], 'text-sm', 'text-white')}>
+          {userPosted.displayName}
+        </a>
       </UserNextLink>
     </div>
     <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
-      <UserIconLink {...userReceived} size={32} />
+      <UserIconLink {...userReceived} size={24} />
       <UserNextLink alias={userReceived.alias}>
-        <a className={clsx('text-white')}>{userReceived.displayName}</a>
+        <a className={clsx(['ml-1'], 'text-sm', 'text-white')}>
+          {userReceived.displayName}
+        </a>
       </UserNextLink>
     </div>
   </div>
@@ -134,40 +135,4 @@ export const PrejudiceFrom: React.VFC<
       />
     )}
   />
-);
-
-export const PrejudiceToList: React.VFC<{
-  className?: string;
-  prejudices: {
-    id: string;
-    title: string;
-    number: number;
-    userPosted: {alias: string; displayName: string; picture: string};
-    userReceived: {alias: string; displayName: string; picture: string};
-    answer: {id: string} | null;
-  }[];
-}> = ({className, prejudices}) => (
-  <div className={clsx(className, ['flex', 'flex-col'], ['space-y-4'])}>
-    {prejudices.map((prejudice) => (
-      <PrejudiceTo key={prejudice.id} {...prejudice} />
-    ))}
-  </div>
-);
-
-export const PrejudiceFromList: React.VFC<{
-  className?: string;
-  prejudices: {
-    id: string;
-    title: string;
-    number: number;
-    userPosted: {alias: string; displayName: string; picture: string};
-    userReceived: {alias: string; displayName: string; picture: string};
-    answer: {id: string} | null;
-  }[];
-}> = ({className, prejudices}) => (
-  <div className={clsx(className, ['flex', 'flex-col'], ['space-y-4'])}>
-    {prejudices.map((prejudice) => (
-      <PrejudiceFrom key={prejudice.id} {...prejudice} />
-    ))}
-  </div>
 );

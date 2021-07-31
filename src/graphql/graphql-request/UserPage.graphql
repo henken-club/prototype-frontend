@@ -52,6 +52,27 @@ query UserPage($alias: ID!) {
           }
         }
       }
+      postedAnswers {
+        nodes {
+          id
+          text
+          correctness
+          prejudice {
+            title
+            number
+            posted: userFrom {
+              alias
+              displayName
+              picture
+            }
+            received: userTo {
+              alias
+              displayName
+              picture
+            }
+          }
+        }
+      }
     }
   }
 }

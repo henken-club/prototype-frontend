@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {PrejudiceFromList, PrejudiceToList} from './PrejudiceList';
+import {PrejudiceFromList, PrejudiceToList} from '../molecules/PrejudicesList';
 
 export const SectionPrejudicesTemplate: React.VFC<{
   className?: string;

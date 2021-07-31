@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {UserGrid} from './UserGrid';
-import {MyPage} from './MyPage';
+import {UserGrid} from '../atoms/UserGrid';
+import {MyPage} from '../atoms/MyPage';
 
 import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 

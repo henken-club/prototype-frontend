@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {SectionAnswers} from './SectionAnswers';
+import {SectionAnswers} from './organisms/SectionAnswers';
 import {
   SectionPostedPrejudices,
   SectionReceivedPrejudices,
-} from './SectionPrejudices';
-import {SectionUser} from './HeaderUser';
+} from './organisms/SectionPrejudices';
+import {SectionUser} from './organisms/HeaderUser';
 
 export type ViewProps = {
   className?: string;
@@ -32,8 +32,16 @@ export type ViewProps = {
       userPosted: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
-    answers: {
+    postedAnswers: {
       id: string;
+      text: string | null;
+      correctness: 'CORRECT' | 'PARTLY_CORRECT' | 'INCORRECT';
+      prejudice: {
+        title: string;
+        number: number;
+        userPosted: {alias: string; displayName: string; picture: string};
+        userReceived: {alias: string; displayName: string; picture: string};
+      };
     }[];
   };
 };
@@ -81,7 +89,7 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
             alias={user.alias}
             displayName={user.displayName}
             picture={user.picture}
-            answers={user.answers}
+            answers={user.postedAnswers}
           />
         </div>
       </div>
@@ -113,8 +121,16 @@ export type ComponentProps = {
       userPosted: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
-    answers: {
+    postedAnswers: {
       id: string;
+      text: string | null;
+      correctness: 'CORRECT' | 'PARTLY_CORRECT' | 'INCORRECT';
+      prejudice: {
+        title: string;
+        number: number;
+        userPosted: {alias: string; displayName: string; picture: string};
+        userReceived: {alias: string; displayName: string; picture: string};
+      };
     }[];
   };
 };

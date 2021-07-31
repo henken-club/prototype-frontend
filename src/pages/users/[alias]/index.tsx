@@ -28,8 +28,16 @@ export type StaticProps = {
       userPosted: {alias: string; displayName: string; picture: string};
       answer: {id: string} | null;
     }[];
-    answers: {
+    postedAnswers: {
       id: string;
+      text: string | null;
+      correctness: 'CORRECT' | 'PARTLY_CORRECT' | 'INCORRECT';
+      prejudice: {
+        title: string;
+        number: number;
+        userPosted: {alias: string; displayName: string; picture: string};
+        userReceived: {alias: string; displayName: string; picture: string};
+      };
     }[];
   };
 };
@@ -75,7 +83,19 @@ export const getServerSideProps: GetServerSideProps<StaticProps, UrlQuery> =
                       answer: answer ? {...answer} : null,
                     }),
                   ),
-                  answers: [],
+                  postedAnswers: user.postedAnswers.nodes.map(
+                    ({id, text, correctness, prejudice}) => ({
+                      id,
+                      text: text || null,
+                      correctness,
+                      prejudice: {
+                        title: prejudice.title,
+                        number: prejudice.number,
+                        userPosted: {...prejudice.posted},
+                        userReceived: {...prejudice.received},
+                      },
+                    }),
+                  ),
                 },
               },
             }
