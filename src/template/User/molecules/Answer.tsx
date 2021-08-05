@@ -1,22 +1,34 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {
-  AnswerToNextLink,
-  PrejudiceFromNextLink,
-} from '~/components/atoms/NextLink';
+import {AnswerToNextLink, UserNextLink} from '~/components/atoms/NextLink';
+import {UserIconLink} from '~/components/atoms/UserIconLink';
 
-export const Answer: React.VFC<{
+export type AnswerProps = {
   className?: string;
   text: string | null;
   correctness: 'CORRECT' | 'PARTLY_CORRECT' | 'INCORRECT';
   prejudice: {
     title: string;
     number: number;
-    userPosted: {alias: string; displayName: string; picture: string};
-    userReceived: {alias: string; displayName: string; picture: string};
+    userPosted: {
+      alias: string;
+      displayName: string;
+      picture: string;
+    };
+    userReceived: {
+      alias: string;
+      displayName: string;
+      picture: string;
+    };
   };
-}> = ({className, text, correctness, prejudice}) => (
+};
+export const Answer: React.VFC<AnswerProps> = ({
+  className,
+  text,
+  correctness,
+  prejudice,
+}) => (
   <div
     className={clsx(
       className,
@@ -27,22 +39,6 @@ export const Answer: React.VFC<{
       ['py-2'],
     )}
   >
-    <PrejudiceFromNextLink
-      base={prejudice.userReceived.alias}
-      from={prejudice.userPosted.alias}
-      number={prejudice.number}
-    >
-      <a
-        className={clsx(
-          ['col-span-full'],
-          ['text-white'],
-          ['text-xl'],
-          ['font-bold'],
-        )}
-      >
-        {prejudice.title}への返答
-      </a>
-    </PrejudiceFromNextLink>
     <AnswerToNextLink
       base={prejudice.userPosted.alias}
       to={prejudice.userReceived.alias}
@@ -56,8 +52,27 @@ export const Answer: React.VFC<{
           ['font-bold'],
         )}
       >
-        {text}
+        {prejudice.title}への返答
       </a>
     </AnswerToNextLink>
+    <div className={clsx(['col-span-full'])}>
+      <p>{text}</p>
+    </div>
+    <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
+      <UserIconLink {...prejudice.userPosted} size={24} />
+      <UserNextLink alias={prejudice.userPosted.alias}>
+        <a className={clsx(['ml-1'], 'text-sm', 'text-white')}>
+          {prejudice.userPosted.displayName}
+        </a>
+      </UserNextLink>
+    </div>
+    <div className={clsx(['col-span-1'], ['flex', 'items-center'])}>
+      <UserIconLink {...prejudice.userReceived} size={24} />
+      <UserNextLink alias={prejudice.userReceived.alias}>
+        <a className={clsx(['ml-1'], 'text-sm', 'text-white')}>
+          {prejudice.userReceived.displayName}
+        </a>
+      </UserNextLink>
+    </div>
   </div>
 );
