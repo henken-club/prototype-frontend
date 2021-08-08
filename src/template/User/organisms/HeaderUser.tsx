@@ -1,10 +1,13 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {UserGrid} from '../atoms/UserGrid';
 import {MyPage} from '../atoms/MyPage';
 import {useIsMyPage} from '../useIsMyPage';
 import {OthersPage} from '../molecules/OthersPage';
+import {
+  HeaderUserFollowers,
+  HeaderUserFollowing,
+} from '../molecules/FollowPart';
 
 import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 
@@ -32,16 +35,9 @@ export const View: React.VFC<ViewProps> = ({
   followingCount,
   isMyPage,
 }) => (
-  <header
-    className={clsx(
-      className,
-      [['grid'], ['grid-cols-1', 'sm:grid-cols-2']],
-      [['md:flex'], 'flex-col'],
-    )}
-  >
+  <header className={clsx(className, ['flex', 'flex-col'])}>
     <div
       className={clsx(
-        ['col-span-full'],
         'flex',
         ['flex-row', 'md:flex-col'],
         ['items-center', 'md:items-start'],
@@ -66,20 +62,16 @@ export const View: React.VFC<ViewProps> = ({
     {!isMyPage && (
       <OthersPage className={clsx(['col-span-full'], 'mt-4')} alias={alias} />
     )}
-    <div className={clsx('block', 'mt-4')}>
-      <p className={clsx(['text-md'], ['text-white'])}>
-        <strong className={clsx('font-bold')}>{followersCount}</strong>
-        <span>Followers</span>
-      </p>
-      <UserGrid className={clsx('mt-2')} users={followers} />
-    </div>
-    <div className={clsx('block', 'mt-4')}>
-      <p className={clsx(['text-md'], ['text-white'])}>
-        <strong className={clsx('font-bold')}>{followingCount}</strong>
-        <span>Following</span>
-      </p>
-      <UserGrid className={clsx('mt-2')} users={following} />
-    </div>
+    <HeaderUserFollowing
+      className={clsx('mt-4')}
+      count={followingCount}
+      users={following}
+    />
+    <HeaderUserFollowers
+      className={clsx('mt-4')}
+      count={followersCount}
+      users={followers}
+    />
   </header>
 );
 

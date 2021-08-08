@@ -7,6 +7,7 @@ import {
 } from '~/components/atoms/Button/CommonButton';
 import {IconWarning} from '~/components/atoms/Icon';
 import {useUnfollowMutation} from '~/graphql/apollo';
+import {useTranslation} from '~/i18n/useTranslation';
 
 type ViewProps = {
   className?: string;
@@ -18,6 +19,7 @@ export const View: React.VFC<ViewProps> = ({
   onClickYes,
   onClickNo,
 }) => {
+  const {LL} = useTranslation();
   return (
     <div
       className={clsx(
@@ -35,17 +37,19 @@ export const View: React.VFC<ViewProps> = ({
         className={clsx('col-span-full', ['flex', 'flex-col', 'items-center'])}
       >
         <IconWarning className={clsx('text-4xl', 'text-red-400')} />
-        <p className={clsx('mt-4', ['text-white'])}>フォローを外しますか？</p>
+        <p className={clsx('mt-4', ['text-white'])}>
+          {LL.pageUser['フォローを解除しますか?']()}
+        </p>
       </div>
       <ButtonDangerous
         className={clsx('py-2', 'px-4')}
         onClick={onClickYes}
-        text="外す"
+        text={LL.pageUser.解除する()}
       />
       <ButtonNegative
         className={clsx('py-2', 'px-4')}
         onClick={onClickNo}
-        text="外さない"
+        text={LL.pageUser.解除しない()}
       />
     </div>
   );

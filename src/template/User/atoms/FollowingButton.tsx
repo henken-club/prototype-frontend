@@ -4,14 +4,16 @@ import {UnfollowForm} from './UnfollowForm';
 
 import {Modal} from '~/components/atoms/Modal';
 import {ButtonNormalDanger} from '~/components/atoms/Button/CommonButton';
+import {useTranslation} from '~/i18n/useTranslation';
 
 export type ViewProps = {
   className?: string;
   onClick(): void;
 };
-export const View: React.VFC<ViewProps> = ({...props}) => (
-  <ButtonNormalDanger {...props} text="フォロー中" />
-);
+export const View: React.VFC<ViewProps> = ({...props}) => {
+  const {LL} = useTranslation();
+  return <ButtonNormalDanger {...props} text={LL.common.フォロー中()} />;
+};
 
 export const FollowingButton: React.VFC<{
   className?: string;

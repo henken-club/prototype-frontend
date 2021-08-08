@@ -4,13 +4,14 @@
   "words": [
     "clsx",
     "codegen",
+    "followee",
     "fontawesome",
     "fortawesome",
     "gqlgen",
     "henken",
     "typesafe",
-    "yarnrc",
-    "unfollow"
+    "unfollow",
+    "yarnrc"
   ],
   "ignorePaths": [
     "node_modules/**",

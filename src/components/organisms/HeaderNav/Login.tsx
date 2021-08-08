@@ -2,9 +2,12 @@ import clsx from 'clsx';
 import React from 'react';
 
 import {NextLink} from '~/components/atoms/NextLink';
+import {useTranslation} from '~/i18n/useTranslation';
 
 export type ViewProps = {className?: string};
 export const View: React.VFC<ViewProps> = ({className, ...props}) => {
+  const {LL} = useTranslation();
+
   return (
     <NextLink href="/login">
       <a
@@ -19,7 +22,7 @@ export const View: React.VFC<ViewProps> = ({className, ...props}) => {
           ['font-bold'],
         )}
       >
-        Login
+        {LL.common.ログイン()}
       </a>
     </NextLink>
   );
