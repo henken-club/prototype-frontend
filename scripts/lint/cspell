@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-cspell --no-progress \
-  src/**/* \
-  public/**/* \
+cspell --no-progress\
+  "./src/**/*" \
+  "./public/**/*" \
   $@
 
