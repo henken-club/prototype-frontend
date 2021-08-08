@@ -1,7 +1,12 @@
+const withPlugins = require('next-compose-plugins');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: Boolean(process.env.ANALYZE),
+});
+
 /**
  * @type {import('next/dist/next-server/server/config-shared').NextConfig}
  */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
@@ -19,3 +24,5 @@ module.exports = {
     defaultLocale: 'ja',
   },
 };
+
+module.exports = withPlugins([withBundleAnalyzer], nextConfig);
