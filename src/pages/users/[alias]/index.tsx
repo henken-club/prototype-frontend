@@ -2,7 +2,9 @@ import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from 'next';
 import React from 'react';
 import {Merge} from 'type-fest';
 
+import {NextHead} from '~/components/atoms/NextHead';
 import {graphqlSdk} from '~/graphql/graphql-request';
+import {useTranslation} from '~/i18n/useTranslation';
 import {UserTemplate} from '~/template/User';
 
 export type StaticProps = {
@@ -108,8 +110,15 @@ export type PageProps = Merge<
   InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 export const Page: NextPage<PageProps> = ({className, user, ...props}) => {
+  const {LL} = useTranslation();
   return (
     <>
+      <NextHead
+        title={LL.head.title.users({
+          alias: user.alias,
+          displayName: user.displayName,
+        })}
+      />
       <UserTemplate className={className} user={user} />
     </>
   );

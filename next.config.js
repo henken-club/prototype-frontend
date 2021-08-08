@@ -1,3 +1,6 @@
+/**
+ * @type {import('next/dist/next-server/server/config-shared').NextConfig}
+ */
 module.exports = {
   reactStrictMode: true,
   typescript: {
@@ -10,5 +13,9 @@ module.exports = {
   },
   images: {
     domains: [process.env.ALLOWED_IMAGE_DOMAIN],
+  },
+  i18n: {
+    locales: ['ja'],
+    defaultLocale: 'ja',
   },
 };

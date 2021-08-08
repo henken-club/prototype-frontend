@@ -10,15 +10,16 @@
   "bugs": {
     "url": "https://github.com/henken-club/prototype-frontend/issues"
   },
-  "engines": {
-    "node": "14"
-  },
   "scripts": {
-    "dev": "next",
+    "dev": "run-p -sln dev:*",
+    "dev:next": "next dev",
+    "dev:i18n": "typesafe-i18n",
+    "dev:codegen": "gql-gen --watch",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "codegen": "gql-gen",
+    "i18ngen": "typesafe-i18n --no-watch",
     "storybook:dev": "start-storybook -p 6006 -s ./public",
     "storybook:build": "build-storybook -s ./public",
     "lint": "scripty",
@@ -47,7 +48,8 @@
     "react-hook-form": "^7.11.1",
     "react-use": "^17.2.4",
     "recoil": "^0.3.1",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "typesafe-i18n": "^2.36.0"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.6",
