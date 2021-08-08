@@ -1,0 +1,6 @@
+query OthersUserPage($alias: ID!) {
+  viewer {
+    id
+    isFollowing(to: {alias: $alias})
+  }
+}

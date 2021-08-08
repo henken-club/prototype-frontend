@@ -6,7 +6,7 @@ import {
   SectionPostedPrejudices,
   SectionReceivedPrejudices,
 } from './organisms/SectionPrejudices';
-import {SectionUser} from './organisms/HeaderUser';
+import {HeaderUser} from './organisms/HeaderUser';
 
 export type ViewProps = {
   className?: string;
@@ -49,7 +49,7 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
   return (
     <div className={clsx(className, 'bg-gray-900')}>
       <div className={clsx(['flex'], ['flex-col', 'md:flex-row'])}>
-        <SectionUser
+        <HeaderUser
           className={clsx()}
           alias={user.alias}
           displayName={user.displayName}

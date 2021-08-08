@@ -1,0 +1,37 @@
+import React, {useState} from 'react';
+
+import {UnfollowForm} from './UnfollowForm';
+
+import {Modal} from '~/components/atoms/Modal';
+import {ButtonNormalDanger} from '~/components/atoms/Button/CommonButton';
+
+export type ViewProps = {
+  className?: string;
+  onClick(): void;
+};
+export const View: React.VFC<ViewProps> = ({...props}) => (
+  <ButtonNormalDanger {...props} text="フォロー中" />
+);
+
+export const FollowingButton: React.VFC<{
+  className?: string;
+  pageAlias: string;
+  update(): void;
+}> = ({pageAlias, update, ...props}) => {
+  const [confirm, setConfirm] = useState(false);
+
+  return (
+    <>
+      <View {...props} onClick={() => setConfirm(true)} />
+      {confirm && (
+        <Modal close={() => setConfirm(false)}>
+          <UnfollowForm
+            alias={pageAlias}
+            close={() => setConfirm(false)}
+            update={update}
+          />
+        </Modal>
+      )}
+    </>
+  );
+};

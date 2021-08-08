@@ -3,11 +3,14 @@ import React from 'react';
 
 import {UserGrid} from '../atoms/UserGrid';
 import {MyPage} from '../atoms/MyPage';
+import {useIsMyPage} from '../useIsMyPage';
+import {OthersPage} from '../molecules/OthersPage';
 
 import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 
-export const SectionUser: React.VFC<{
+export type ViewProps = {
   className?: string;
+
   alias: string;
   displayName: string;
   picture: string;
@@ -15,7 +18,10 @@ export const SectionUser: React.VFC<{
   followingCount: number;
   followers: {alias: string; displayName: string; picture: string}[];
   followersCount: number;
-}> = ({
+
+  isMyPage: boolean;
+};
+export const View: React.VFC<ViewProps> = ({
   className,
   picture,
   displayName,
@@ -24,6 +30,7 @@ export const SectionUser: React.VFC<{
   followersCount,
   following,
   followingCount,
+  isMyPage,
 }) => (
   <header
     className={clsx(
@@ -55,20 +62,38 @@ export const SectionUser: React.VFC<{
         <p className={clsx(['text-xl'], ['text-gray-400'])}>{alias}</p>
       </div>
     </div>
-    <MyPage className={clsx(['col-span-full'], 'mt-4')} pageAlias={alias} />
+    {isMyPage && <MyPage className={clsx(['col-span-full'], 'mt-4')} />}
+    {!isMyPage && (
+      <OthersPage className={clsx(['col-span-full'], 'mt-4')} alias={alias} />
+    )}
     <div className={clsx('block', 'mt-4')}>
       <p className={clsx(['text-md'], ['text-white'])}>
-        <strong className={clsx('font-bold')}>{followersCount}</strong>{' '}
+        <strong className={clsx('font-bold')}>{followersCount}</strong>
         <span>Followers</span>
       </p>
       <UserGrid className={clsx('mt-2')} users={followers} />
     </div>
     <div className={clsx('block', 'mt-4')}>
       <p className={clsx(['text-md'], ['text-white'])}>
-        <strong className={clsx('font-bold')}>{followingCount}</strong>{' '}
+        <strong className={clsx('font-bold')}>{followingCount}</strong>
         <span>Following</span>
       </p>
       <UserGrid className={clsx('mt-2')} users={following} />
     </div>
   </header>
 );
+
+export const HeaderUser: React.VFC<{
+  className?: string;
+  alias: string;
+  displayName: string;
+  picture: string;
+  following: {alias: string; displayName: string; picture: string}[];
+  followingCount: number;
+  followers: {alias: string; displayName: string; picture: string}[];
+  followersCount: number;
+}> = (props) => {
+  const isMyPage = useIsMyPage(props.alias);
+
+  return <View {...props} isMyPage={isMyPage} />;
+};

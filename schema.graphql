@@ -90,17 +90,13 @@ enum Correctness {
 """A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."""
 scalar DateTime
 
-type Follow {
-  from: User!
-  to: User!
-}
-
 input FollowUserInput {
   user: GetUserInput!
 }
 
 type FollowUserPayload {
-  follow: Follow!
+  from: User!
+  to: User!
 }
 
 type FollowerConnection {
@@ -269,17 +265,13 @@ type TokensData {
   refreshToken: String!
 }
 
-type Unfollow {
-  from: User!
-  to: User!
-}
-
 input UnfollowUserInput {
   user: GetUserInput!
 }
 
 type UnfollowUserPayload {
-  unfollow: Unfollow!
+  from: User!
+  to: User!
 }
 
 type User {
@@ -289,6 +281,8 @@ type User {
   followers(limit: Int = 10, skip: Int = 0): FollowerConnection!
   following(limit: Int = 10, skip: Int = 0): FollowingConnection!
   id: ID!
+  isFollowed(from: UserUniqueUnion!): Boolean!
+  isFollowing(to: UserUniqueUnion!): Boolean!
   picture: String!
   postedAnswers(limit: Int = 10, orderBy: AnswerOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): AnswerConnection!
   postedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
