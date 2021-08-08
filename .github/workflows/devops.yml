@@ -55,7 +55,8 @@ jobs:
         with:
           node-version: 14
       - uses: bahmutov/npm-install@v1
-      - run: yarn run codegen
+      - run: yarn run gqlgen
+      - run: yarn run i18ngen
       - run: yarn run typecheck
 
   build:
@@ -67,7 +68,8 @@ jobs:
         with:
           node-version: 14
       - uses: bahmutov/npm-install@v1
-      - run: yarn run codegen
+      - run: yarn run gqlgen
+      - run: yarn run i18ngen
       - run: yarn run build
         env:
           ALLOWED_IMAGE_DOMAIN: ${{ env.ALLOWED_IMAGE_DOMAIN }}

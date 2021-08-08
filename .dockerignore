@@ -11,3 +11,9 @@ test/
 # documents
 *.md
 LICENSE
+
+# graphql-codegen
+src/graphql/codegen/
+
+# typesafe-i18n
+src/i18n/i18n-*
