@@ -15,6 +15,7 @@
     "dev:next": "next dev",
     "dev:gqlgen": "gql-gen --watch",
     "dev:i18ngen": "typesafe-i18n",
+    "prebuild": "run-s gqlgen i18ngen",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",

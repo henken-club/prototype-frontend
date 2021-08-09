@@ -20,19 +20,14 @@ ENV NEXT_TELEMETRY_DISABLED 1
 ENV GRAPHQL_API_SCHEMA ./schema.graphql
 ENV ALLOWED_IMAGE_DOMAIN henken.club
 
-COPY schema.graphql codegen.yml ./
-COPY src/graphql ./src/graphql
-RUN yarn run gqlgen
-
-COPY .typesafe-i18n.json ./
-COPY src/i18n ./src/i18n
-RUN yarn run i18ngen
-
 COPY \
   .babelrc \
+  .typesafe-i18n.json \
+  codegen.yml \
   next-env.d.ts \
   next.config.js \
   postcss.config.js \
+  schema.graphql \
   tailwind.config.js \
   tsconfig.json \
   ./
@@ -51,7 +46,6 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./
 
 EXPOSE $PORT
 
