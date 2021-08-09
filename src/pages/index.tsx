@@ -1,4 +1,4 @@
-import {GetServerSideProps, NextPage} from 'next';
+import {NextPage} from 'next';
 import React from 'react';
 import {useRecoilValue} from 'recoil';
 
@@ -11,14 +11,6 @@ import {NextHead} from '~/components/atoms/NextHead';
 
 export type UrlQuery = Record<string, never>;
 export type PageProps = {className?: string};
-
-export const getServerSideProps: GetServerSideProps<UrlQuery, PageProps> =
-  async ({query}) => {
-    return {
-      props: {},
-    };
-  };
-
 export const Page: NextPage<PageProps> = ({className, ...props}) => {
   const {LL} = useTranslation();
   const viewer = useRecoilValue(viewerState);
