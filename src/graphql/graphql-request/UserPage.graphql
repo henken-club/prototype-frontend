@@ -1,0 +1,78 @@
+query UserPage($alias: ID!) {
+  getUser(input: {alias: $alias}) {
+    user {
+      alias
+      displayName
+      picture
+      followers(limit: 16) {
+        totalCount
+        nodes {
+          alias
+          displayName
+          picture
+        }
+      }
+      following(limit: 16) {
+        totalCount
+        nodes {
+          alias
+          displayName
+          picture
+        }
+      }
+      postedPrejudices {
+        nodes {
+          id
+          title
+          createdAt
+          number
+          received: userTo {
+            alias
+            displayName
+            picture
+          }
+          answer {
+            id
+          }
+        }
+      }
+      receivedPrejudices {
+        nodes {
+          id
+          title
+          createdAt
+          number
+          posted: userFrom {
+            alias
+            displayName
+            picture
+          }
+          answer {
+            id
+          }
+        }
+      }
+      postedAnswers {
+        nodes {
+          id
+          text
+          correctness
+          prejudice {
+            title
+            number
+            posted: userFrom {
+              alias
+              displayName
+              picture
+            }
+            received: userTo {
+              alias
+              displayName
+              picture
+            }
+          }
+        }
+      }
+    }
+  }
+}

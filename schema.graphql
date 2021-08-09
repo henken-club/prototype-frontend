@@ -1,0 +1,300 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input AddAuthorInput {
+  name: String!
+}
+
+type AddAuthorPayload {
+  author: Author!
+}
+
+input AddBookInput {
+  authors: [ID!]!
+  title: String!
+}
+
+type AddBookPayload {
+  book: Book!
+}
+
+type Answer {
+  correctness: Correctness!
+  createdAt: DateTime!
+  id: ID!
+  prejudice: Prejudice!
+  text: String
+}
+
+type AnswerConnection {
+  nodes: [Answer!]!
+}
+
+input AnswerOrder {
+  direction: OrderDirection!
+  field: AnswerOrderField!
+}
+
+enum AnswerOrderField {
+  CREATED_AT
+}
+
+type Author {
+  id: ID!
+  name: String!
+  userResponsibleFor: [User!]!
+  writesBooks(limit: Int = 10, orderBy: BookOrder = {direction: ASC, field: TITLE}, skip: Int = 0): BookConnection!
+}
+
+type AuthorConnection {
+  nodes: [Author!]!
+}
+
+input AuthorOrder {
+  direction: OrderDirection!
+  field: AuthorOrderField!
+}
+
+enum AuthorOrderField {
+  NAME
+}
+
+type Book {
+  authors(limit: Int = 10, orderBy: AuthorOrder = {direction: ASC, field: NAME}, skip: Int = 0): AuthorConnection!
+  id: ID!
+  title: String!
+  userResponsibleFor: [User!]!
+}
+
+type BookConnection {
+  nodes: [Book!]!
+}
+
+input BookOrder {
+  direction: OrderDirection!
+  field: BookOrderField!
+}
+
+enum BookOrderField {
+  TITLE
+}
+
+enum Correctness {
+  CORRECT
+  INCORRECT
+  PARTLY_CORRECT
+}
+
+"""A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."""
+scalar DateTime
+
+input FollowUserInput {
+  user: GetUserInput!
+}
+
+type FollowUserPayload {
+  from: User!
+  to: User!
+}
+
+type FollowerConnection {
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+type FollowingConnection {
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+input GetAnswerInput {
+  number: Int!
+  posted: UserUniqueUnion!
+  received: UserUniqueUnion!
+}
+
+type GetAnswerResult {
+  answer: Answer
+  possibility: Boolean!
+}
+
+input GetPrejudiceInput {
+  number: Int!
+  posted: UserUniqueUnion!
+  received: UserUniqueUnion!
+}
+
+type GetPrejudiceResult {
+  possibility: Boolean!
+  prejudice: Prejudice
+}
+
+input GetUserInput {
+  alias: ID
+  id: ID
+}
+
+type GetUserResult {
+  user: User
+}
+
+input LoginInput {
+  alias: ID!
+  password: String!
+}
+
+type LoginPayload {
+  tokens: TokensData!
+}
+
+type Mutation {
+  addAuthor(input: AddAuthorInput!): AddAuthorPayload!
+  addBook(input: AddBookInput!): AddBookPayload!
+  followUser(input: FollowUserInput!): FollowUserPayload!
+  login(input: LoginInput!): LoginPayload!
+  postAnswer(input: PostAnswerInput!): PostAnswerPayload!
+  postPrejudice(input: PostPrejudiceInput!): PostPrejudicePayload!
+  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
+  signup(input: SignupInput!): SignupPayload!
+  unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload!
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+input PostAnswerInput {
+  prejudiceId: ID!
+}
+
+type PostAnswerPayload {
+  answer: Answer!
+}
+
+input PostPrejudiceInput {
+  receivedUser: UserUniqueUnion!
+  relatedBooks: [ID!]!
+  title: String!
+}
+
+type PostPrejudicePayload {
+  prejudice: Prejudice!
+}
+
+type Prejudice {
+  answer: Answer
+  book: Book!
+  createdAt: DateTime!
+  id: ID!
+  number: Int!
+  relatedBooks(limit: Int = 10, orderBy: BookOrder = {direction: ASC, field: TITLE}, skip: Int = 0): BookConnection!
+  title: String!
+  userFrom: User!
+  userTo: User!
+}
+
+type PrejudiceConnection {
+  nodes: [Prejudice!]!
+}
+
+input PrejudiceOrder {
+  direction: OrderDirection!
+  field: PrejudiceOrderField!
+}
+
+enum PrejudiceOrderField {
+  CREATED_AT
+}
+
+enum PrejudicePostRule {
+  ALL_FOLLOWERS
+  MUTUAL_ONLY
+}
+
+type Query {
+  allAnswers: [Answer!]!
+  allAuthors: [Author!]!
+  allBooks: [Book!]!
+  allPrejudices: [Prejudice!]!
+  allUsers: [User!]!
+  answer(id: ID!): Answer!
+  author(id: ID!): Author
+  book(id: ID!): Book
+  getAnswer(input: GetAnswerInput!): GetAnswerResult!
+  getPrejudice(input: GetPrejudiceInput!): GetPrejudiceResult!
+  getUser(input: GetUserInput!): GetUserResult!
+  prejudice(id: ID!): Prejudice
+  user(id: ID!): User
+  viewer: User!
+}
+
+input RefreshTokenInput {
+  token: String!
+}
+
+type RefreshTokenPayload {
+  tokens: TokensData!
+}
+
+type Setting {
+  rulePostPrejudice: PrejudicePostRule!
+}
+
+input SignupInput {
+  alias: ID!
+  displayName: String!
+  password: String!
+}
+
+type SignupPayload {
+  tokens: TokensData!
+}
+
+type TokensData {
+  accessToken: String!
+  refreshToken: String!
+}
+
+input UnfollowUserInput {
+  user: GetUserInput!
+}
+
+type UnfollowUserPayload {
+  from: User!
+  to: User!
+}
+
+type User {
+  alias: ID!
+  canPostPrejudiceTo: Boolean!
+  displayName: String!
+  followers(limit: Int = 10, skip: Int = 0): FollowerConnection!
+  following(limit: Int = 10, skip: Int = 0): FollowingConnection!
+  id: ID!
+  isFollowed(from: UserUniqueUnion!): Boolean!
+  isFollowing(to: UserUniqueUnion!): Boolean!
+  picture: String!
+  postedAnswers(limit: Int = 10, orderBy: AnswerOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): AnswerConnection!
+  postedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
+  receivedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceConnection!
+}
+
+type UserConnection {
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+input UserUniqueUnion {
+  alias: ID
+  id: ID
+}

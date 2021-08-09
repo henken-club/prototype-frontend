@@ -1,0 +1,25 @@
+generates:
+  ./schema.graphql:
+    schema: ${GRAPHQL_API_SCHEMA:./schema.graphql}
+    plugins:
+      - schema-ast
+    config:
+      includeDirectives: true
+
+  ./src/graphql/codegen/apollo.ts:
+    schema: ${GRAPHQL_API_ENDPOINT:./schema.graphql}
+    documents:
+      - ./src/graphql/apollo/*.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+
+  ./src/graphql/codegen/graphql-request.ts:
+    schema: ${GRAPHQL_API_ENDPOINT:./schema.graphql}
+    documents:
+      - ./src/graphql/graphql-request/*.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

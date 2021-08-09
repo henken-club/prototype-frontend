@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+package-lock.json
+
+# logfiles
+*.log
+
+# output
+dist/
+
+# test
+coverage/
+
+# env
+.env
+.env.local
+.envrc
+
+# OS
+.DS_Store
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+.vercel
+
+# graphql-codegen
+src/graphql/codegen/
+
+# typesafe-i18n
+src/i18n/i18n-*
+
+# Next.js
+.next/
+
+# Vercel
+.vercel/
+
+# ESLint
+.eslintcache
+
+# Storybook
+storybook-static/

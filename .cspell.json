@@ -1,0 +1,28 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "words": [
+    "clsx",
+    "codegen",
+    "followee",
+    "fontawesome",
+    "fortawesome",
+    "gqlgen",
+    "henken",
+    "typesafe",
+    "unfollow",
+    "yarnrc"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    ".github/workflows/*",
+    ".vscode/extensions.json",
+    "./.cspell.json",
+    "./.yarnrc",
+    "./package.json",
+    "./yarn.lock",
+    "./schema.graphql",
+    "src/graphql/codegen/*",
+    "src/i18n/i18n-*"
+  ]
+}
