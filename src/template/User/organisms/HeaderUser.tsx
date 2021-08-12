@@ -14,6 +14,7 @@ import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 export type ViewProps = {
   className?: string;
 
+  id: string;
   alias: string;
   displayName: string;
   picture: string;
@@ -26,6 +27,7 @@ export type ViewProps = {
 };
 export const View: React.VFC<ViewProps> = ({
   className,
+  id,
   picture,
   displayName,
   alias,
@@ -60,7 +62,7 @@ export const View: React.VFC<ViewProps> = ({
     </div>
     {isMyPage && <MyPage className={clsx(['col-span-full'], 'mt-4')} />}
     {!isMyPage && (
-      <OthersPage className={clsx(['col-span-full'], 'mt-4')} alias={alias} />
+      <OthersPage className={clsx(['col-span-full'], 'mt-4')} id={id} />
     )}
     <HeaderUserFollowing
       className={clsx('mt-4')}
@@ -77,6 +79,7 @@ export const View: React.VFC<ViewProps> = ({
 
 export const HeaderUser: React.VFC<{
   className?: string;
+  id: string;
   alias: string;
   displayName: string;
   picture: string;
@@ -85,7 +88,7 @@ export const HeaderUser: React.VFC<{
   followers: {alias: string; displayName: string; picture: string}[];
   followersCount: number;
 }> = (props) => {
-  const isMyPage = useIsMyPage(props.alias);
+  const isMyPage = useIsMyPage(props.id);
 
   return <View {...props} isMyPage={isMyPage} />;
 };

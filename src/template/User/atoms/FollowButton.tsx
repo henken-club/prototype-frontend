@@ -12,11 +12,11 @@ export const View: React.VFC<ViewProps> = ({...props}) => {
 
 export const FollowButton: React.VFC<{
   className?: string;
-  pageAlias: string;
+  id: string;
   update(): void;
-}> = ({pageAlias, update: refetch, ...props}) => {
+}> = ({id, update: refetch, ...props}) => {
   const [follow, {called, loading, data, error}] = useFollowMutation({
-    variables: {alias: pageAlias},
+    variables: {id},
   });
 
   return (

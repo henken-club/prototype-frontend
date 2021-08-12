@@ -57,12 +57,12 @@ export const View: React.VFC<ViewProps> = ({
 
 export const UnfollowForm: React.VFC<{
   className?: string;
-  alias: string;
+  id: string;
   close(): void;
   update(): void;
-}> = ({alias, close, update, ...props}) => {
+}> = ({id, close, update, ...props}) => {
   const [unfollow, {called, loading, data, error}] = useUnfollowMutation({
-    variables: {alias},
+    variables: {id},
   });
 
   return (
