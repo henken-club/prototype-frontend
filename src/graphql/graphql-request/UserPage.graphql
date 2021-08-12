@@ -1,20 +1,23 @@
 query UserPage($alias: ID!) {
-  getUser(input: {alias: $alias}) {
+  getUser(alias: $alias) {
     user {
+      id
       alias
       displayName
       picture
       followers(limit: 16) {
         totalCount
         nodes {
+          id
           alias
           displayName
           picture
         }
       }
-      following(limit: 16) {
+      followees(limit: 16) {
         totalCount
         nodes {
+          id
           alias
           displayName
           picture
@@ -26,7 +29,8 @@ query UserPage($alias: ID!) {
           title
           createdAt
           number
-          received: userTo {
+          received {
+            id
             alias
             displayName
             picture
@@ -42,7 +46,8 @@ query UserPage($alias: ID!) {
           title
           createdAt
           number
-          posted: userFrom {
+          posted {
+            id
             alias
             displayName
             picture
@@ -60,12 +65,14 @@ query UserPage($alias: ID!) {
           prejudice {
             title
             number
-            posted: userFrom {
+            posted {
+              id
               alias
               displayName
               picture
             }
-            received: userTo {
+            received {
+              id
               alias
               displayName
               picture

@@ -1,7 +1,5 @@
-query OtherUserPage($alias: ID!) {
-  getUser(input: {alias: $alias}) {
-    user {
-      canPostPrejudiceTo
-    }
+query OtherUserPage($id: ID!) {
+  viewer {
+    canPostPrejudiceTo(id: $id)
   }
 }

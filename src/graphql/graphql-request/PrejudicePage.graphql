@@ -1,20 +1,17 @@
 query PrejudicePage($posted: ID!, $received: ID!, $number: Int!) {
-  getPrejudice(
-    input: {
-      posted: {alias: $posted}
-      received: {alias: $received}
-      number: $number
-    }
-  ) {
+  getPrejudice(posted: $posted, received: $received, number: $number) {
     prejudice {
+      id
       title
       number
-      userTo {
+      posted {
+        id
         alias
         displayName
         picture
       }
-      userFrom {
+      received {
+        id
         alias
         displayName
         picture

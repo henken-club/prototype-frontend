@@ -1,5 +1,5 @@
-mutation Unfollow($alias: ID!) {
-  unfollowUser(input: {user: {alias: $alias}}) {
+mutation Unfollow($id: ID!) {
+  unfollowUser(id: $id) {
     to {
       id
     }
