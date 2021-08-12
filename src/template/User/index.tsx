@@ -19,20 +19,24 @@ export type ViewProps = {
     alias: string;
     displayName: string;
     picture: string;
-    following: {
-      id: string;
-      alias: string;
-      displayName: string;
-      picture: string;
-    }[];
-    followingCount: number;
+    followees: {
+      nodes: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      }[];
+      count: number;
+    };
     followers: {
-      id: string;
-      alias: string;
-      displayName: string;
-      picture: string;
-    }[];
-    followersCount: number;
+      nodes: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      }[];
+      count: number;
+    };
     postedPrejudices: {
       id: string;
       title: string;
@@ -90,10 +94,8 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
           alias={user.alias}
           displayName={user.displayName}
           picture={user.picture}
+          followees={user.followees}
           followers={user.followers}
-          followersCount={user.followersCount}
-          following={user.following}
-          followingCount={user.followingCount}
         />
         <div
           className={clsx(

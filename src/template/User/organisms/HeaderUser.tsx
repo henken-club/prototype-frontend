@@ -18,10 +18,15 @@ export type ViewProps = {
   alias: string;
   displayName: string;
   picture: string;
-  following: {alias: string; displayName: string; picture: string}[];
-  followingCount: number;
-  followers: {alias: string; displayName: string; picture: string}[];
-  followersCount: number;
+
+  followees: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
+  followers: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
 
   isMyPage: boolean;
 };
@@ -31,11 +36,9 @@ export const View: React.VFC<ViewProps> = ({
   picture,
   displayName,
   alias,
-  followers,
-  followersCount,
-  following,
-  followingCount,
   isMyPage,
+  followees,
+  followers,
 }) => (
   <header className={clsx(className, ['flex', 'flex-col'])}>
     <div
@@ -66,13 +69,13 @@ export const View: React.VFC<ViewProps> = ({
     )}
     <HeaderUserFollowing
       className={clsx('mt-4')}
-      count={followingCount}
-      users={following}
+      count={followees.count}
+      users={followees.nodes}
     />
     <HeaderUserFollowers
       className={clsx('mt-4')}
-      count={followersCount}
-      users={followers}
+      count={followers.count}
+      users={followers.nodes}
     />
   </header>
 );
@@ -83,10 +86,15 @@ export const HeaderUser: React.VFC<{
   alias: string;
   displayName: string;
   picture: string;
-  following: {alias: string; displayName: string; picture: string}[];
-  followingCount: number;
-  followers: {alias: string; displayName: string; picture: string}[];
-  followersCount: number;
+
+  followees: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
+  followers: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
 }> = (props) => {
   const isMyPage = useIsMyPage(props.id);
 

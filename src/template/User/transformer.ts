@@ -6,20 +6,24 @@ export type ServerSideProps = {
     alias: string;
     displayName: string;
     picture: string;
-    following: {
-      id: string;
-      alias: string;
-      displayName: string;
-      picture: string;
-    }[];
-    followingCount: number;
+    followees: {
+      nodes: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      }[];
+      count: number;
+    };
     followers: {
-      id: string;
-      alias: string;
-      displayName: string;
-      picture: string;
-    }[];
-    followersCount: number;
+      nodes: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      }[];
+      count: number;
+    };
     postedPrejudices: {
       id: string;
       title: string;
@@ -78,14 +82,18 @@ export const transformer = ({
           alias: user.alias,
           displayName: user.displayName,
           picture: user.picture,
-          following: user.followees.nodes.map(({__typename, ...user}) => ({
-            ...user,
-          })),
-          followingCount: user.followees.totalCount,
-          followers: user.followers.nodes.map(({__typename, ...user}) => ({
-            ...user,
-          })),
-          followersCount: user.followers.totalCount,
+          followees: {
+            nodes: user.followees.nodes.map(({__typename, ...user}) => ({
+              ...user,
+            })),
+            count: user.followees.totalCount,
+          },
+          followers: {
+            nodes: user.followers.nodes.map(({__typename, ...user}) => ({
+              ...user,
+            })),
+            count: user.followers.totalCount,
+          },
           postedPrejudices: user.postedPrejudices.nodes.map(
             ({__typename, id, title, number, received, answer}) => ({
               id,
