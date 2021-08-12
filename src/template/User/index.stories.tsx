@@ -37,36 +37,40 @@ PersonalPage.args = {
     alias: 'alias',
     displayName: 'DisplayName',
     picture: assets.icon(0),
-    followers: [
-      {
-        id: 'follower1',
-        alias: 'follower1',
-        displayName: 'Follower1',
-        picture: assets.icon(1),
-      },
-      {
-        id: 'follower2',
-        alias: 'follower2',
-        displayName: 'Follower2',
-        picture: assets.icon(2),
-      },
-    ],
-    followersCount: 4,
-    following: [
-      {
-        id: 'following1',
-        alias: 'following1',
-        displayName: 'Following1',
-        picture: assets.icon(1),
-      },
-      {
-        id: 'following1',
-        alias: 'following1',
-        displayName: 'Following1',
-        picture: assets.icon(2),
-      },
-    ],
-    followingCount: 4,
+    followers: {
+      nodes: [
+        {
+          id: 'follower1',
+          alias: 'follower1',
+          displayName: 'Follower1',
+          picture: assets.icon(1),
+        },
+        {
+          id: 'follower2',
+          alias: 'follower2',
+          displayName: 'Follower2',
+          picture: assets.icon(2),
+        },
+      ],
+      count: 2,
+    },
+    followees: {
+      nodes: [
+        {
+          id: 'following1',
+          alias: 'following1',
+          displayName: 'Following1',
+          picture: assets.icon(1),
+        },
+        {
+          id: 'following1',
+          alias: 'following1',
+          displayName: 'Following1',
+          picture: assets.icon(2),
+        },
+      ],
+      count: 2,
+    },
     postedPrejudices: [
       {
         id: 'post_prejudice1',
