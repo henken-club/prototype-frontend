@@ -1,6 +1,7 @@
 import {atom} from 'recoil';
 
 export type Viewer = {
+  id: string;
   alias: string;
   displayName: string;
   picture: string;

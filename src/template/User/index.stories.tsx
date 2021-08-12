@@ -21,6 +21,7 @@ export const PersonalPage: Story<ViewProps> = (args) => (
   <RecoilRoot
     initializeState={(snap) => {
       snap.set(viewerState, {
+        id: 'user1',
         alias: 'alias',
         displayName: 'DisplayName',
         picture: assets.icon(),
@@ -32,35 +33,44 @@ export const PersonalPage: Story<ViewProps> = (args) => (
 );
 PersonalPage.args = {
   user: {
+    id: 'user1',
     alias: 'alias',
     displayName: 'DisplayName',
     picture: assets.icon(0),
-    followers: [
-      {
-        alias: 'follower1',
-        displayName: 'Follower1',
-        picture: assets.icon(1),
-      },
-      {
-        alias: 'follower2',
-        displayName: 'Follower2',
-        picture: assets.icon(2),
-      },
-    ],
-    followersCount: 4,
-    following: [
-      {
-        alias: 'following1',
-        displayName: 'Following1',
-        picture: assets.icon(1),
-      },
-      {
-        alias: 'following1',
-        displayName: 'Following1',
-        picture: assets.icon(2),
-      },
-    ],
-    followingCount: 4,
+    followers: {
+      nodes: [
+        {
+          id: 'follower1',
+          alias: 'follower1',
+          displayName: 'Follower1',
+          picture: assets.icon(1),
+        },
+        {
+          id: 'follower2',
+          alias: 'follower2',
+          displayName: 'Follower2',
+          picture: assets.icon(2),
+        },
+      ],
+      count: 2,
+    },
+    followees: {
+      nodes: [
+        {
+          id: 'following1',
+          alias: 'following1',
+          displayName: 'Following1',
+          picture: assets.icon(1),
+        },
+        {
+          id: 'following1',
+          alias: 'following1',
+          displayName: 'Following1',
+          picture: assets.icon(2),
+        },
+      ],
+      count: 2,
+    },
     postedPrejudices: [
       {
         id: 'post_prejudice1',
@@ -68,6 +78,7 @@ PersonalPage.args = {
         number: 1,
         answer: {id: 'answer1'},
         userReceived: {
+          id: 'user2',
           alias: 'user2',
           displayName: 'User2',
           picture: assets.icon(2),
@@ -79,6 +90,7 @@ PersonalPage.args = {
         number: 1,
         answer: null,
         userReceived: {
+          id: 'user3',
           alias: 'user3',
           displayName: 'User3',
           picture: assets.icon(3),
@@ -92,6 +104,7 @@ PersonalPage.args = {
         number: 1,
         answer: {id: 'answer1'},
         userPosted: {
+          id: 'user2',
           alias: 'user2',
           displayName: 'User2',
           picture: assets.icon(2),
@@ -103,6 +116,7 @@ PersonalPage.args = {
         number: 1,
         answer: null,
         userPosted: {
+          id: 'user3',
           alias: 'user3',
           displayName: 'User3',
           picture: assets.icon(3),
@@ -118,11 +132,13 @@ PersonalPage.args = {
           title: 'Prejudice1',
           number: 1,
           userPosted: {
+            id: 'user1',
             alias: 'user1',
             displayName: 'User1',
             picture: assets.icon(1),
           },
           userReceived: {
+            id: 'user2',
             alias: 'user2',
             displayName: 'User2',
             picture: assets.icon(2),
@@ -137,11 +153,13 @@ PersonalPage.args = {
           title: 'Prejudice2',
           number: 1,
           userPosted: {
+            id: 'user1',
             alias: 'user1',
             displayName: 'User1',
             picture: assets.icon(1),
           },
           userReceived: {
+            id: 'user3',
             alias: 'user3',
             displayName: 'User3',
             picture: assets.icon(3),
@@ -156,11 +174,13 @@ PersonalPage.args = {
           title: 'Prejudice3',
           number: 1,
           userPosted: {
+            id: 'user1',
             alias: 'user1',
             displayName: 'User1',
             picture: assets.icon(1),
           },
           userReceived: {
+            id: 'user4',
             alias: 'user4',
             displayName: 'User4',
             picture: assets.icon(4),

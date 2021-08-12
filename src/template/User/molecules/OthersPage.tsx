@@ -8,11 +8,11 @@ import {useOthersUserPageQuery} from '~/graphql/apollo';
 
 export type ViewProps = {
   className?: string;
-  alias: string;
+  id: string;
 };
-export const OthersPage: React.VFC<ViewProps> = ({className, alias}) => {
+export const OthersPage: React.VFC<ViewProps> = ({className, id}) => {
   const {loading, data, refetch} = useOthersUserPageQuery({
-    variables: {alias},
+    variables: {id},
   });
 
   if (loading || !data) return <></>;
@@ -22,14 +22,14 @@ export const OthersPage: React.VFC<ViewProps> = ({className, alias}) => {
         {!data.viewer.isFollowing && (
           <FollowButton
             className={clsx('w-full', 'py-1')}
-            pageAlias={alias}
+            id={id}
             update={refetch}
           />
         )}
         {data.viewer.isFollowing && (
           <FollowingButton
             className={clsx('w-full', 'py-1')}
-            pageAlias={alias}
+            id={id}
             update={refetch}
           />
         )}

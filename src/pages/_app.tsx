@@ -31,6 +31,7 @@ export const Viewer: React.VFC<Record<string, never>> = ({...props}) => {
     if (!loading && !data) setViewer(undefined);
     else if (!loading && data)
       setViewer({
+        id: data.viewer.id,
         alias: data.viewer.alias,
         displayName: data.viewer.displayName,
         picture: data.viewer.picture,

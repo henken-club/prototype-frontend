@@ -4,18 +4,6 @@ import {setCookie} from 'nookies';
 import {graphqlSdk} from '~/graphql/graphql-request';
 import {API_REFRESH_TOKEN_KEY} from '~/lib/env';
 
-const parseInput = ({
-  alias,
-  password,
-}: Record<'alias' | 'password', any>): {
-  alias: string;
-  password: string;
-} | null => {
-  if (typeof alias === 'string' && typeof password === 'string')
-    return {alias, password};
-  return null;
-};
-
 export const handler: NextApiHandler = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405);
@@ -24,9 +12,8 @@ export const handler: NextApiHandler = async (req, res) => {
   }
 
   const {alias, password} = req.body;
-  const input = parseInput({alias, password});
 
-  if (!input) {
+  if (typeof alias !== 'string' || typeof password !== 'string') {
     res.status(400);
     res.end();
     return;
@@ -34,7 +21,7 @@ export const handler: NextApiHandler = async (req, res) => {
 
   try {
     const tokens = await graphqlSdk
-      .Login({input})
+      .Login({alias, password})
       .then(({login}) => login.tokens);
 
     setCookie({res}, API_REFRESH_TOKEN_KEY!, tokens.refreshToken);

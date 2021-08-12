@@ -14,26 +14,31 @@ import {UserIcon} from '~/components/atoms/UserIcon/UserIcon';
 export type ViewProps = {
   className?: string;
 
+  id: string;
   alias: string;
   displayName: string;
   picture: string;
-  following: {alias: string; displayName: string; picture: string}[];
-  followingCount: number;
-  followers: {alias: string; displayName: string; picture: string}[];
-  followersCount: number;
+
+  followees: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
+  followers: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
 
   isMyPage: boolean;
 };
 export const View: React.VFC<ViewProps> = ({
   className,
+  id,
   picture,
   displayName,
   alias,
-  followers,
-  followersCount,
-  following,
-  followingCount,
   isMyPage,
+  followees,
+  followers,
 }) => (
   <header className={clsx(className, ['flex', 'flex-col'])}>
     <div
@@ -60,32 +65,38 @@ export const View: React.VFC<ViewProps> = ({
     </div>
     {isMyPage && <MyPage className={clsx(['col-span-full'], 'mt-4')} />}
     {!isMyPage && (
-      <OthersPage className={clsx(['col-span-full'], 'mt-4')} alias={alias} />
+      <OthersPage className={clsx(['col-span-full'], 'mt-4')} id={id} />
     )}
     <HeaderUserFollowing
       className={clsx('mt-4')}
-      count={followingCount}
-      users={following}
+      count={followees.count}
+      users={followees.nodes}
     />
     <HeaderUserFollowers
       className={clsx('mt-4')}
-      count={followersCount}
-      users={followers}
+      count={followers.count}
+      users={followers.nodes}
     />
   </header>
 );
 
 export const HeaderUser: React.VFC<{
   className?: string;
+  id: string;
   alias: string;
   displayName: string;
   picture: string;
-  following: {alias: string; displayName: string; picture: string}[];
-  followingCount: number;
-  followers: {alias: string; displayName: string; picture: string}[];
-  followersCount: number;
+
+  followees: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
+  followers: {
+    nodes: {id: string; alias: string; displayName: string; picture: string}[];
+    count: number;
+  };
 }> = (props) => {
-  const isMyPage = useIsMyPage(props.alias);
+  const isMyPage = useIsMyPage(props.id);
 
   return <View {...props} isMyPage={isMyPage} />;
 };

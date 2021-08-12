@@ -17,9 +17,9 @@ export const View: React.VFC<ViewProps> = ({...props}) => {
 
 export const FollowingButton: React.VFC<{
   className?: string;
-  pageAlias: string;
+  id: string;
   update(): void;
-}> = ({pageAlias, update, ...props}) => {
+}> = ({id, update, ...props}) => {
   const [confirm, setConfirm] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ export const FollowingButton: React.VFC<{
       {confirm && (
         <Modal close={() => setConfirm(false)}>
           <UnfollowForm
-            alias={pageAlias}
+            id={id}
             close={() => setConfirm(false)}
             update={update}
           />

@@ -27,8 +27,8 @@ export const transformerPrejudiceAnswerPage: Transformer<
         prejudice: {
           title: prejudice.title,
           number: prejudice.number,
-          userFrom: {...prejudice.userFrom},
-          userTo: {...prejudice.userTo},
+          userFrom: {...prejudice.posted},
+          userTo: {...prejudice.received},
         },
       }
     : null;

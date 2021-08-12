@@ -1,4 +1,0 @@
-schema: ${GRAPHQL_API_SCHEMA:./schema.graphql}
-documents:
-  - src/graphql/apollo/*.graphql
-  - src/graphql/graphql-request/*.graphql

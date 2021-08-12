@@ -1,5 +1,5 @@
-mutation Follow($alias: ID!) {
-  followUser(input: {user: {alias: $alias}}) {
+mutation Follow($id: ID!) {
+  followUser(id: $id) {
     to {
       id
     }

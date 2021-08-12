@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
+import {Merge} from 'type-fest';
 
 import {SectionAnswers} from './organisms/SectionAnswers';
 import {
@@ -7,29 +8,57 @@ import {
   SectionReceivedPrejudices,
 } from './organisms/SectionPrejudices';
 import {HeaderUser} from './organisms/HeaderUser';
+import {ServerSideProps} from './transformer';
+
+export * from './transformer';
 
 export type ViewProps = {
   className?: string;
   user: {
+    id: string;
     alias: string;
     displayName: string;
     picture: string;
-    following: {alias: string; displayName: string; picture: string}[];
-    followingCount: number;
-    followers: {alias: string; displayName: string; picture: string}[];
-    followersCount: number;
+    followees: {
+      nodes: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      }[];
+      count: number;
+    };
+    followers: {
+      nodes: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      }[];
+      count: number;
+    };
     postedPrejudices: {
       id: string;
       title: string;
       number: number;
-      userReceived: {alias: string; displayName: string; picture: string};
+      userReceived: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      };
       answer: {id: string} | null;
     }[];
     receivedPrejudices: {
       id: string;
       title: string;
       number: number;
-      userPosted: {alias: string; displayName: string; picture: string};
+      userPosted: {
+        id: string;
+        alias: string;
+        displayName: string;
+        picture: string;
+      };
       answer: {id: string} | null;
     }[];
     postedAnswers: {
@@ -39,8 +68,18 @@ export type ViewProps = {
       prejudice: {
         title: string;
         number: number;
-        userPosted: {alias: string; displayName: string; picture: string};
-        userReceived: {alias: string; displayName: string; picture: string};
+        userPosted: {
+          id: string;
+          alias: string;
+          displayName: string;
+          picture: string;
+        };
+        userReceived: {
+          id: string;
+          alias: string;
+          displayName: string;
+          picture: string;
+        };
       };
     }[];
   };
@@ -51,13 +90,12 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
       <div className={clsx(['flex'], ['flex-col', 'md:flex-row'])}>
         <HeaderUser
           className={clsx()}
+          id={user.id}
           alias={user.alias}
           displayName={user.displayName}
           picture={user.picture}
+          followees={user.followees}
           followers={user.followers}
-          followersCount={user.followersCount}
-          following={user.following}
-          followingCount={user.followingCount}
         />
         <div
           className={clsx(
@@ -97,43 +135,7 @@ export const View: React.VFC<ViewProps> = ({className, user}) => {
   );
 };
 
-export type ComponentProps = {
-  className?: string;
-  user: {
-    alias: string;
-    displayName: string;
-    picture: string;
-    following: {alias: string; displayName: string; picture: string}[];
-    followingCount: number;
-    followers: {alias: string; displayName: string; picture: string}[];
-    followersCount: number;
-    postedPrejudices: {
-      id: string;
-      title: string;
-      number: number;
-      userReceived: {alias: string; displayName: string; picture: string};
-      answer: {id: string} | null;
-    }[];
-    receivedPrejudices: {
-      id: string;
-      title: string;
-      number: number;
-      userPosted: {alias: string; displayName: string; picture: string};
-      answer: {id: string} | null;
-    }[];
-    postedAnswers: {
-      id: string;
-      text: string | null;
-      correctness: 'CORRECT' | 'PARTLY_CORRECT' | 'INCORRECT';
-      prejudice: {
-        title: string;
-        number: number;
-        userPosted: {alias: string; displayName: string; picture: string};
-        userReceived: {alias: string; displayName: string; picture: string};
-      };
-    }[];
-  };
-};
+export type ComponentProps = Merge<ServerSideProps, {className?: string}>;
 export const UserTemplate: React.VFC<ComponentProps> = ({...props}) => {
   return <View {...props} />;
 };

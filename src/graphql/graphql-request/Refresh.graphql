@@ -1,5 +1,5 @@
 mutation Refresh($token: String!) {
-  refreshToken(input: {token: $token}) {
+  refreshToken(token: $token) {
     tokens {
       accessToken
     }
