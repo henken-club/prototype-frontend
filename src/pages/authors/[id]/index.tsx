@@ -1,4 +1,9 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+  NextPage,
+} from 'next';
 import React from 'react';
 import {Merge} from 'type-fest';
 
@@ -8,7 +13,16 @@ import {useTranslation} from '~/i18n/useTranslation';
 import {UserTemplate, ServerSideProps, transformer} from '~/template/Author';
 
 export type UrlQuery = {id: string};
-export const getServerSideProps: GetServerSideProps<ServerSideProps, UrlQuery> =
+export const getStaticPaths: GetStaticPaths<UrlQuery> = async () => {
+  return graphqlSdk.AllAuthorPages().then(({allAuthors}) => ({
+    fallback: true,
+    paths: allAuthors.nodes.map(({id}) => ({
+      params: {id},
+    })),
+  }));
+};
+
+export const getStaticProps: GetStaticProps<ServerSideProps, UrlQuery> =
   async ({params}) => {
     if (!params?.id) return {notFound: true};
 
@@ -20,9 +34,9 @@ export const getServerSideProps: GetServerSideProps<ServerSideProps, UrlQuery> =
 
 export type PageProps = Merge<
   {className?: string},
-  InferGetServerSidePropsType<typeof getServerSideProps>
+  InferGetStaticPropsType<typeof getStaticProps>
 >;
-export const Page: NextPage<PageProps> = ({className, author, ...props}) => {
+export const Page: NextPage<PageProps> = ({className, author}) => {
   const {LL} = useTranslation();
   return (
     <>

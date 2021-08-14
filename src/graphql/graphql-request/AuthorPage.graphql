@@ -11,7 +11,7 @@ query AuthorPage($id: ID!) {
     author {
       id
       name
-      writesBooks {
+      writesBooks(limit: 10) {
         nodes {
           id
           title
