@@ -1,5 +1,5 @@
 query PrejudicePage($posted: ID!, $received: ID!, $number: Int!) {
-  getPrejudice(posted: $posted, received: $received, number: $number) {
+  findPrejudice(posted: $posted, received: $received, number: $number) {
     prejudice {
       id
       title

@@ -19,7 +19,7 @@ export type Props = {
   };
 };
 export const transformerPrejudicePage: Transformer<PrejudicePageQuery, Props> =
-  ({getPrejudice: {prejudice}}) =>
+  ({findPrejudice: {prejudice}}) =>
     prejudice
       ? {
           prejudice: {

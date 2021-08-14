@@ -1,5 +1,5 @@
 query UserPage($alias: ID!) {
-  getUser(alias: $alias) {
+  findUser(alias: $alias) {
     user {
       id
       alias

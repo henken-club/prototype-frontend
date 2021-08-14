@@ -21,7 +21,7 @@ export type Props = {
 export const transformerPrejudiceAnswerPage: Transformer<
   PrejudicePageQuery,
   Props
-> = ({getPrejudice: {prejudice}}) =>
+> = ({findPrejudice: {prejudice}}) =>
   prejudice
     ? {
         prejudice: {
