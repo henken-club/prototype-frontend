@@ -38,6 +38,7 @@ type Author {
   id: ID!
   name: String!
   userResponsibleFor: User!
+  writesBooks(limit: Int = 10, orderBy: BookOrder = {direction: DESC, field: NAME}, skip: Int = 0): BookArray!
 }
 
 type AuthorArray {
@@ -66,8 +67,33 @@ type BookArray {
   totalCount: Int!
 }
 
+input BookOrder {
+  direction: OrderDirection!
+  field: AuthorOrderField!
+}
+
 """A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."""
 scalar DateTime
+
+type FindAnswerPayload {
+  answer: Answer
+}
+
+type FindAuthorPayload {
+  author: Author
+}
+
+type FindBookPayload {
+  book: Book
+}
+
+type FindPrejudicePayload {
+  prejudice: Prejudice
+}
+
+type FindUserResult {
+  user: User
+}
 
 type FollowUserPayload {
   from: User!
@@ -82,18 +108,6 @@ type FolloweeArray {
 type FollowerArray {
   nodes: [User!]!
   totalCount: Int!
-}
-
-type GetAnswerPayload {
-  answer: Answer
-}
-
-type GetPrejudicePayload {
-  prejudice: Prejudice
-}
-
-type GetUserResult {
-  user: User
 }
 
 type LoginPayload {
@@ -150,11 +164,13 @@ type Query {
   allPrejudices: PrejudiceArray!
   allUsers: UserArray!
   answer(id: String!): Answer!
-  author(id: String!): Author!
-  book(id: String!): Book!
-  getAnswer(number: Int!, posted: ID!, received: ID!): GetAnswerPayload!
-  getPrejudice(number: Int!, posted: ID!, received: ID!): GetPrejudicePayload!
-  getUser(alias: ID!): GetUserResult!
+  author(id: ID!): Author!
+  book(id: ID!): Book!
+  findAnswer(number: Int!, posted: ID!, received: ID!): FindAnswerPayload!
+  findAuthor(id: ID!): FindAuthorPayload!
+  findBook(id: ID!): FindBookPayload!
+  findPrejudice(number: Int!, posted: ID!, received: ID!): FindPrejudicePayload!
+  findUser(alias: ID!): FindUserResult!
   prejudice(id: ID!): Prejudice!
   searchAuthors(limit: Int = 10, query: String!, skip: Int = 0): AuthorArray!
   user(id: String!): User!

@@ -73,7 +73,7 @@ export type ServerSideProps = {
 };
 
 export const transformer = ({
-  getUser: {user},
+  findUser: {user},
 }: UserPageQuery): ServerSideProps | null =>
   user
     ? {
