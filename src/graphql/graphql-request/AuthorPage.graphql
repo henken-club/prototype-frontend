@@ -1,0 +1,23 @@
+query AllAuthorPages {
+  allAuthors {
+    nodes {
+      id
+    }
+  }
+}
+
+query AuthorPage($id: ID!) {
+  findAuthor(id: $id) {
+    author {
+      id
+      name
+      writesBooks {
+        nodes {
+          id
+          title
+        }
+        totalCount
+      }
+    }
+  }
+}
