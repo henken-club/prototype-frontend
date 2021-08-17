@@ -1,0 +1,16 @@
+query AllBookPages {
+  allBooks {
+    nodes {
+      id
+    }
+  }
+}
+
+query BookPage($id: ID!) {
+  findBook(id: $id) {
+    book {
+      id
+      title
+    }
+  }
+}
