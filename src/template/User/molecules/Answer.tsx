@@ -1,7 +1,10 @@
 import clsx from 'clsx';
 import React from 'react';
 
-import {AnswerToNextLink, UserNextLink} from '~/components/atoms/NextLink';
+import {
+  UserPrejudiceToAnswerNextLink,
+  UserNextLink,
+} from '~/components/atoms/NextLink';
 import {UserIconLink} from '~/components/atoms/UserIconLink';
 
 export type AnswerProps = {
@@ -39,7 +42,7 @@ export const Answer: React.VFC<AnswerProps> = ({
       ['py-2'],
     )}
   >
-    <AnswerToNextLink
+    <UserPrejudiceToAnswerNextLink
       base={prejudice.userPosted.alias}
       to={prejudice.userReceived.alias}
       number={prejudice.number}
@@ -54,7 +57,7 @@ export const Answer: React.VFC<AnswerProps> = ({
       >
         {prejudice.title}への返答
       </a>
-    </AnswerToNextLink>
+    </UserPrejudiceToAnswerNextLink>
     <div className={clsx(['col-span-full'])}>
       <p>{text}</p>
     </div>

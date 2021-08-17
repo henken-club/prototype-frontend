@@ -2,10 +2,10 @@ import clsx from 'clsx';
 import React from 'react';
 
 import {
-  AnswerFromNextLink,
-  AnswerToNextLink,
-  PrejudiceFromNextLink,
-  PrejudiceToNextLink,
+  UserPrejudiceFromAnswerNextLink,
+  UserPrejudiceToAnswerNextLink,
+  UserPrejudiceFromNextLink,
+  UserPrejudiceToNextLink,
   UserNextLink,
 } from '~/components/atoms/NextLink';
 import {UserIconLink} from '~/components/atoms/UserIconLink';
@@ -89,7 +89,7 @@ export const PrejudiceTo: React.VFC<
     userPosted={userPosted}
     userReceived={userReceived}
     PrejudiceNextLink={(props) => (
-      <PrejudiceToNextLink
+      <UserPrejudiceToNextLink
         {...props}
         base={userPosted.alias}
         to={userReceived.alias}
@@ -97,7 +97,7 @@ export const PrejudiceTo: React.VFC<
       />
     )}
     AnswerNextLink={(props) => (
-      <AnswerToNextLink
+      <UserPrejudiceToAnswerNextLink
         {...props}
         base={userPosted.alias}
         to={userReceived.alias}
@@ -119,7 +119,7 @@ export const PrejudiceFrom: React.VFC<
     userPosted={userPosted}
     userReceived={userReceived}
     PrejudiceNextLink={(props) => (
-      <PrejudiceFromNextLink
+      <UserPrejudiceFromNextLink
         {...props}
         base={userReceived.alias}
         from={userPosted.alias}
@@ -127,7 +127,7 @@ export const PrejudiceFrom: React.VFC<
       />
     )}
     AnswerNextLink={(props) => (
-      <AnswerFromNextLink
+      <UserPrejudiceFromAnswerNextLink
         {...props}
         base={userReceived.alias}
         from={userPosted.alias}
