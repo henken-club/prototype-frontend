@@ -11,6 +11,7 @@ const ja: BaseTranslation = {
       usersPrejudice: `{fromDisplayName:string}から{toDisplayName:string}への偏見#{number:number}`,
       usersPrejudiceAnswer: `{fromDisplayName:string}から{toDisplayName:string}への偏見#{number:number}の回答`,
       loading: 'ロード中',
+      authors: `{name:string}の作者ページ`,
     },
   },
   common: {
