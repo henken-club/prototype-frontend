@@ -4,6 +4,8 @@ import {Merge} from 'type-fest';
 
 import {TransformedProps} from './transformer';
 
+import {Bookcover} from '~/components/atoms/Bookcover';
+
 export * from './transformer';
 
 export type ViewProps = {
@@ -11,6 +13,7 @@ export type ViewProps = {
   book: {
     id: string;
     title: string;
+    cover: string | null;
     authors: {
       count: number;
       nodes: {
@@ -23,13 +26,22 @@ export type ViewProps = {
 export const View: React.VFC<ViewProps> = ({className, book}) => {
   return (
     <div className={clsx(className, 'bg-gray-900')}>
-      <header>
-        <h1 className={clsx('text-white', 'text-2xl')}>{book.title}</h1>
-        <ul className={clsx('flex')}>
-          {book.authors.nodes.map(({id, name}) => (
-            <li key={id}>{name}</li>
-          ))}
-        </ul>
+      <header className={clsx('flex')}>
+        <div className={clsx('w-48')}>
+          <Bookcover
+            className={clsx('h-48')}
+            src={book.cover}
+            title={book.title}
+          />
+        </div>
+        <div className={clsx('flex', 'flex-col')}>
+          <h1 className={clsx('text-white', 'text-2xl')}>{book.title}</h1>
+          <ul className={clsx('flex')}>
+            {book.authors.nodes.map(({id, name}) => (
+              <li key={id}>{name}</li>
+            ))}
+          </ul>
+        </div>
       </header>
     </div>
   );

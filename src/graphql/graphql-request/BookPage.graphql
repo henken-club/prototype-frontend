@@ -11,6 +11,7 @@ query BookPage($id: ID!) {
     book {
       id
       title
+      cover
     }
   }
 }
