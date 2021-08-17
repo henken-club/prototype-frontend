@@ -8,6 +8,24 @@ export const UserNextLink: React.FC<GenericNextLinkProps<{alias: string}>> = ({
   ...props
 }) => <NextLink {...props} href={`/users/${alias}`} />;
 
+export const UserFollowersNextLink: React.FC<
+  GenericNextLinkProps<{alias: string; page?: number}>
+> = ({alias, page, ...props}) =>
+  page && page !== 1 ? (
+    <NextLink {...props} href={`/users/${alias}/followers/${page}`} />
+  ) : (
+    <NextLink {...props} href={`/users/${alias}/followers`} />
+  );
+
+export const UserFolloweesNextLink: React.FC<
+  GenericNextLinkProps<{alias: string; page?: number}>
+> = ({alias, page, ...props}) =>
+  page && page !== 1 ? (
+    <NextLink {...props} href={`/users/${alias}/followees/${page}`} />
+  ) : (
+    <NextLink {...props} href={`/users/${alias}/followees`} />
+  );
+
 export const UserPrejudiceFromNextLink: React.FC<
   GenericNextLinkProps<{base: string; from: string; number: number}>
 > = ({base, from, number, ...props}) => (

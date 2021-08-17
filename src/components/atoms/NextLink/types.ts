@@ -8,10 +8,21 @@ export type TermsPage = `/terms`;
 export type ContactPage = `/contact`;
 
 export type AuthorPage = `/authors/${string}`;
+export type AuthorWritesBooksPage =
+  | `${AuthorPage}/books`
+  | `${AuthorPage}/books/${number}`;
 
 export type BookPage = `/books/${string}`;
 
 export type UserPage = `/users/${string}`;
+
+export type UserFollowersPage =
+  | `${UserPage}/followers`
+  | `${UserPage}/followers/${number}`;
+
+export type UserFolloweesPage =
+  | `${UserPage}/followees`
+  | `${UserPage}/followees/${number}`;
 
 export type UserPrejudicesFromPage = `${UserPage}/from/${string}`;
 export type UserPrejudiceFromPage = `${UserPrejudicesFromPage}/${number}`;
@@ -28,8 +39,11 @@ export type Href =
   | TermsPage
   | ContactPage
   | AuthorPage
+  | AuthorWritesBooksPage
   | BookPage
   | UserPage
+  | UserFollowersPage
+  | UserFolloweesPage
   | UserPrejudicesFromPage
   | UserPrejudiceFromPage
   | UserPrejudiceFromAnswerPage
