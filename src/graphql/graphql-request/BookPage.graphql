@@ -12,6 +12,12 @@ query BookPage($id: ID!) {
       id
       title
       cover
+      authors {
+        nodes {
+          id
+          name
+        }
+      }
     }
   }
 }

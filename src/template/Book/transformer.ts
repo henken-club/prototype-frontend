@@ -6,12 +6,9 @@ export type TransformedProps = {
     title: string;
     cover: string | null;
     authors: {
-      count: number;
-      nodes: {
-        id: string;
-        name: string;
-      }[];
-    };
+      id: string;
+      name: string;
+    }[];
   };
 };
 
@@ -24,10 +21,10 @@ export const transformer = ({
           id: book.id,
           title: book.title,
           cover: book.cover || null,
-          authors: {
-            count: 0,
-            nodes: [],
-          },
+          authors: book.authors.nodes.map(({id, name}) => ({
+            id,
+            name,
+          })),
         },
       }
     : null;
