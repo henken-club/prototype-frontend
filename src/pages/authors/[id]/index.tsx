@@ -10,26 +10,28 @@ import {Merge} from 'type-fest';
 import {NextHead} from '~/components/atoms/NextHead';
 import {graphqlSdk} from '~/graphql/graphql-request';
 import {useTranslation} from '~/i18n/useTranslation';
-import {UserTemplate, ServerSideProps, transformer} from '~/template/Author';
+import {UserTemplate, TransformedProps, transformer} from '~/template/Author';
 
 export type UrlQuery = {id: string};
 export const getStaticPaths: GetStaticPaths<UrlQuery> = async () => {
   return graphqlSdk.AllAuthorPages().then(({allAuthors}) => ({
-    fallback: true,
+    fallback: 'blocking',
     paths: allAuthors.nodes.map(({id}) => ({
       params: {id},
     })),
   }));
 };
 
-export const getStaticProps: GetStaticProps<ServerSideProps, UrlQuery> =
+export const getStaticProps: GetStaticProps<TransformedProps, UrlQuery> =
   async ({params}) => {
     if (!params?.id) return {notFound: true};
 
     return graphqlSdk
       .AuthorPage({id: params.id})
       .then(transformer)
-      .then((value) => (value ? {props: value} : {notFound: true}));
+      .then((value) =>
+        value ? {props: value, revalidate: 60} : {notFound: true},
+      );
   };
 
 export type PageProps = Merge<

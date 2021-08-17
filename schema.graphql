@@ -57,7 +57,9 @@ enum AuthorOrderField {
 
 type Book {
   authors(limit: Int = 10, orderBy: AuthorOrder = {direction: DESC, field: NAME}, skip: Int = 0): AuthorArray!
+  cover: String
   id: ID!
+  isbn: String
   title: String!
   userResponsibleFor: User!
 }
@@ -116,7 +118,7 @@ type LoginPayload {
 
 type Mutation {
   addAuthor(name: String!): AddAuthorPayload!
-  addBook(authors: [ID!]!, title: String!): AddBookPayload!
+  addBook(authors: [ID!]!, isbn: String, title: String!): AddBookPayload!
   followUser(id: ID!): FollowUserPayload!
   login(alias: String!, password: String!): LoginPayload!
   postPrejudice(relatedBooks: [ID!]!, title: String!, userId: ID!): PostPrejudicePayload!
