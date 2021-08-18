@@ -1,17 +1,13 @@
 {
   "version": "0.1",
   "language": "en",
-  "words": [
-    "clsx",
-    "codegen",
-    "followee",
-    "followees",
+  "words": ["bookcover", "followee", "followees", "typesafe", "unfollow"],
+  "ignoreWords": [
     "fontawesome",
     "fortawesome",
-    "gqlgen",
+    "clsx",
+    "codegen",
     "henken",
-    "typesafe",
-    "unfollow",
     "yarnrc"
   ],
   "ignorePaths": [
