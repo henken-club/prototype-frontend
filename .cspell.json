@@ -8,7 +8,8 @@
     "clsx",
     "codegen",
     "henken",
-    "yarnrc"
+    "yarnrc",
+    "tailwindcss"
   ],
   "ignorePaths": [
     "node_modules/**",
