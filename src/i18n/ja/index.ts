@@ -13,6 +13,7 @@ const ja: BaseTranslation = {
       loading: 'ロード中',
       authors: `{name:string}の作者ページ`,
       book: `{title:string}の本ページ`,
+      searchAuthors: `『{query:string}』の著者の検索結果 | {page:number}ページ目`,
     },
   },
   common: {
@@ -48,6 +49,14 @@ const ja: BaseTranslation = {
 
     回答した偏見: '回答した偏見',
     回答した偏見はまだありません: '回答した偏見はまだありません',
+  },
+  pageSearchAuthors: {
+    検索結果: '『{query:string}』の著者の検索結果',
+    ありませんでした: 'ありませんでした',
+    _件見つかりました: '{total:number}件見つかりました',
+    _件中_件までを表示中: '{total:number}件中{to:number}件までを表示中',
+    _件中_件から_件までを表示中:
+      '{total:number}件中{from:number}件から{to:number}件までを表示中',
   },
 };
 
