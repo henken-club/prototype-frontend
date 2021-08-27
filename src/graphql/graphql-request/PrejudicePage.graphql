@@ -1,0 +1,21 @@
+query PrejudicePage($posted: ID!, $received: ID!, $number: Int!) {
+  findPrejudice(posted: $posted, received: $received, number: $number) {
+    prejudice {
+      id
+      title
+      number
+      posted {
+        id
+        alias
+        displayName
+        picture
+      }
+      received {
+        id
+        alias
+        displayName
+        picture
+      }
+    }
+  }
+}

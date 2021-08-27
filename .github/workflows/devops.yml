@@ -1,0 +1,56 @@
+name: DevOps
+
+on:
+  pull_request:
+
+env:
+  ALLOWED_IMAGE_DOMAIN: henken.club
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: yarn
+      - uses: bahmutov/npm-install@v1
+      - run: yarn run lint:eslint
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - uses: bahmutov/npm-install@v1
+      - run: yarn run lint:prettier
+
+  cspell:
+    name: cspell
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - run: yarn run lint:cspell
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - uses: bahmutov/npm-install@v1
+      - run: yarn run gqlgen
+      - run: yarn run i18ngen
+      - run: yarn run typecheck

@@ -1,0 +1,7 @@
+mutation PostPrejudice($userId: ID!, $title: String!, $relatedBooks: [ID!]!) {
+  postPrejudice(userId: $userId, title: $title, relatedBooks: $relatedBooks) {
+    prejudice {
+      id
+    }
+  }
+}

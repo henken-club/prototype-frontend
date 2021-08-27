@@ -1,0 +1,7 @@
+mutation Follow($id: ID!) {
+  followUser(id: $id) {
+    to {
+      id
+    }
+  }
+}

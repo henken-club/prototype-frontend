@@ -1,0 +1,85 @@
+query UserPage($alias: ID!) {
+  findUser(alias: $alias) {
+    user {
+      id
+      alias
+      displayName
+      picture
+      followers(limit: 16) {
+        totalCount
+        nodes {
+          id
+          alias
+          displayName
+          picture
+        }
+      }
+      followees(limit: 16) {
+        totalCount
+        nodes {
+          id
+          alias
+          displayName
+          picture
+        }
+      }
+      postedPrejudices {
+        nodes {
+          id
+          title
+          createdAt
+          number
+          received {
+            id
+            alias
+            displayName
+            picture
+          }
+          answer {
+            id
+          }
+        }
+      }
+      receivedPrejudices {
+        nodes {
+          id
+          title
+          createdAt
+          number
+          posted {
+            id
+            alias
+            displayName
+            picture
+          }
+          answer {
+            id
+          }
+        }
+      }
+      postedAnswers {
+        nodes {
+          id
+          text
+          correctness
+          prejudice {
+            title
+            number
+            posted {
+              id
+              alias
+              displayName
+              picture
+            }
+            received {
+              id
+              alias
+              displayName
+              picture
+            }
+          }
+        }
+      }
+    }
+  }
+}

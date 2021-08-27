@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+prettier --check **/*.{json,yml} $@
+
+prettier --check --parser=json $@ \
+  .babelrc \
+  .cspell.json \
+  .eslintrc \
+  .graphqlrc.json \
+  .prettierrc

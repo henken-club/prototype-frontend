@@ -1,0 +1,8 @@
+mutation Login($alias: String!, $password: String!) {
+  login(alias: $alias, password: $password) {
+    tokens {
+      accessToken
+      refreshToken
+    }
+  }
+}

@@ -1,0 +1,228 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type AddAuthorPayload {
+  author: Author!
+}
+
+type AddBookPayload {
+  book: Book!
+}
+
+type Answer {
+  correctness: AnswerCorrectness!
+  createdAt: DateTime!
+  id: ID!
+  prejudice: Prejudice!
+  text: String!
+}
+
+type AnswerArray {
+  nodes: [Answer!]!
+}
+
+enum AnswerCorrectness {
+  CORRECT
+  INCORRECT
+  PARTLY_CORRECT
+}
+
+input AnswerOrder {
+  direction: OrderDirection!
+  field: PrejudiceOrderField!
+}
+
+type Author {
+  id: ID!
+  name: String!
+  userResponsibleFor: User!
+  writesBooks(limit: Int = 10, orderBy: BookOrder = {direction: DESC, field: NAME}, skip: Int = 0): BookArray!
+}
+
+type AuthorArray {
+  nodes: [Author!]!
+  totalCount: Int!
+}
+
+input AuthorOrder {
+  direction: OrderDirection!
+  field: AuthorOrderField!
+}
+
+enum AuthorOrderField {
+  NAME
+}
+
+type Book {
+  authors(limit: Int = 10, orderBy: AuthorOrder = {direction: DESC, field: NAME}, skip: Int = 0): AuthorArray!
+  cover: String
+  id: ID!
+  isbn: String
+  title: String!
+  userResponsibleFor: User!
+}
+
+type BookArray {
+  nodes: [Book!]!
+  totalCount: Int!
+}
+
+input BookOrder {
+  direction: OrderDirection!
+  field: AuthorOrderField!
+}
+
+"""A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."""
+scalar DateTime
+
+type FindAnswerPayload {
+  answer: Answer
+}
+
+type FindAuthorPayload {
+  author: Author
+}
+
+type FindBookPayload {
+  book: Book
+}
+
+type FindPrejudicePayload {
+  prejudice: Prejudice
+}
+
+type FindUserResult {
+  user: User
+}
+
+type FollowUserPayload {
+  from: User!
+  to: User!
+}
+
+type FolloweeArray {
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+type FollowerArray {
+  nodes: [User!]!
+  totalCount: Int!
+}
+
+type LoginPayload {
+  tokens: TokenEntities!
+}
+
+type Mutation {
+  addAuthor(name: String!): AddAuthorPayload!
+  addBook(authors: [ID!]!, isbn: String, title: String!): AddBookPayload!
+  followUser(id: ID!): FollowUserPayload!
+  login(alias: String!, password: String!): LoginPayload!
+  postPrejudice(relatedBooks: [ID!]!, title: String!, userId: ID!): PostPrejudicePayload!
+  refreshToken(token: String!): RefreshTokenPayload!
+  signup(alias: String!, displayName: String!, password: String!): SignUpPayload!
+  unfollowUser(id: ID!): UnfollowUserPayload!
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type PostPrejudicePayload {
+  prejudice: Prejudice!
+}
+
+type Prejudice {
+  answer: Answer
+  createdAt: DateTime!
+  id: ID!
+  number: Int!
+  posted: User!
+  received: User!
+  title: String!
+}
+
+type PrejudiceArray {
+  nodes: [Prejudice!]!
+}
+
+input PrejudiceOrder {
+  direction: OrderDirection!
+  field: PrejudiceOrderField!
+}
+
+enum PrejudiceOrderField {
+  CREATED_AT
+}
+
+type Query {
+  allAnswers: AnswerArray!
+  allAuthors: AuthorArray!
+  allBooks: BookArray!
+  allPrejudices: PrejudiceArray!
+  allUsers: UserArray!
+  answer(id: String!): Answer!
+  author(id: ID!): Author!
+  book(id: ID!): Book!
+  findAnswer(number: Int!, posted: ID!, received: ID!): FindAnswerPayload!
+  findAuthor(id: ID!): FindAuthorPayload!
+  findBook(id: ID!): FindBookPayload!
+  findPrejudice(number: Int!, posted: ID!, received: ID!): FindPrejudicePayload!
+  findUser(alias: ID!): FindUserResult!
+  prejudice(id: ID!): Prejudice!
+  searchAuthors(limit: Int = 10, query: String!, skip: Int = 0): AuthorArray!
+  user(id: String!): User!
+  viewer: User!
+}
+
+enum ReceivePrejudicePolicy {
+  ALL_FOLLOWERS
+  MUTUAL_ONLY
+}
+
+type RefreshTokenPayload {
+  tokens: TokenEntities!
+}
+
+type SettingEntity {
+  policyReceivePrejudice: ReceivePrejudicePolicy!
+}
+
+type SignUpPayload {
+  tokens: TokenEntities!
+}
+
+type TokenEntities {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type UnfollowUserPayload {
+  from: User!
+  to: User!
+}
+
+type User {
+  alias: String!
+  canPostPrejudiceTo(id: ID!): Boolean!
+  canReceivePrejudiceFrom(id: ID!): Boolean!
+  displayName: String!
+  followees(limit: Int = 10, skip: Int = 0): FolloweeArray!
+  followers(limit: Int = 10, skip: Int = 0): FollowerArray!
+  id: ID!
+  isFollowedBy(id: ID!): Boolean!
+  isFollowing(id: ID!): Boolean!
+  picture: String!
+  postedAnswers(limit: Int = 10, orderBy: AnswerOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): AnswerArray!
+  postedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceArray!
+  receivedPrejudices(limit: Int = 10, orderBy: PrejudiceOrder = {direction: DESC, field: CREATED_AT}, skip: Int = 0): PrejudiceArray!
+  settings: SettingEntity!
+}
+
+type UserArray {
+  nodes: [User!]!
+}
