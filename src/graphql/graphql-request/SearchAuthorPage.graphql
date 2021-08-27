@@ -1,0 +1,17 @@
+query SearchAuthorsPage($query: String!, $skip: Int!, $limit: Int!) {
+  searchAuthors(query: $query, skip: $skip, limit: $limit) {
+    totalCount
+    nodes {
+      id
+      name
+      writesBooks(limit: 4) {
+        totalCount
+        nodes {
+          id
+          title
+          cover
+        }
+      }
+    }
+  }
+}

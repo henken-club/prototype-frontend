@@ -32,6 +32,10 @@ export type UserPrejudicesToPage = `${UserPage}/to/${string}`;
 export type UserPrejudiceToPage = `${UserPrejudicesToPage}/${number}`;
 export type UserPrejudiceToAnswerPage = `${UserPrejudiceToPage}/answer`;
 
+export type SearchAuthorsPage =
+  | `/search/authors?query=${string}`
+  | `/search/authors?page=${number}&query=${string}`;
+
 export type Href =
   | IndexPage
   | AboutPage
@@ -49,7 +53,8 @@ export type Href =
   | UserPrejudiceFromAnswerPage
   | UserPrejudicesToPage
   | UserPrejudiceToPage
-  | UserPrejudiceToAnswerPage;
+  | UserPrejudiceToAnswerPage
+  | SearchAuthorsPage;
 
 export type NextLinkProps = Merge<Omit<LinkProps, 'href'>, {href: Href}>;
 export type GenericNextLinkProps<T extends Record<string, string | number>> =

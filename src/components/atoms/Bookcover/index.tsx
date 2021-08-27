@@ -12,10 +12,24 @@ export const Bookcover: React.VFC<BookcoverProps> = ({
   title,
   src,
 }) => (
-  <div className={clsx(className, 'relative')}>
+  <div className={clsx(className)}>
     {src && (
-      <Image src={src} alt={title} layout="fill" objectFit="scale-down" />
+      <div
+        className={clsx('relative', 'h-full', ['bg-black', 'bg-opacity-50'])}
+      >
+        <Image src={src} alt={title} layout="fill" objectFit="scale-down" />
+      </div>
     )}
-    {!src && <span>{title}</span>}
+    {!src && (
+      <div className={clsx('h-full', ['bg-gray-200'], ['p-1'])}>
+        <span
+          className={clsx('block', 'select-none', 'text-xs', 'leading-2', [
+            'text-gray-800',
+          ])}
+        >
+          {title}
+        </span>
+      </div>
+    )}
   </div>
 );
